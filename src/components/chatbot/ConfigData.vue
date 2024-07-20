@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import FileData from '@/components/configData/FileData.vue'
-import ImportFileData from '@/components/configData/ImportFileData.vue'
-import { TabPane, Tabs } from 'ant-design-vue'
-import { ref } from 'vue'
-const inputValue = ref('')
-const value1 = ref('')
+import FileData from '@/components/configData/FileData.vue';
+import ImportFileData from '@/components/configData/ImportFileData.vue';
+import { TabPane, Tabs } from 'ant-design-vue';
+import { ref } from 'vue';
+// const inputValue = ref('')
+// const value1 = ref('')
 const activeKey = ref('1')
 </script>
 
