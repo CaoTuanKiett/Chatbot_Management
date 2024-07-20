@@ -1,0 +1,103 @@
+<script setup lang="ts">
+import type { SelectProps } from 'ant-design-vue'
+import { Select } from 'ant-design-vue'
+import { ref } from 'vue'
+
+const inputValue = ref('')
+const value1 = ref('lucy')
+const options1 = ref<SelectProps['options']>([
+    {
+        value: 'jack',
+        label: 'Jack'
+    },
+    {
+        value: 'lucy',
+        label: 'Lucy'
+    },
+    {
+        value: 'disabled',
+        label: 'Disabled',
+        disabled: true
+    },
+    {
+        value: 'yiminghe',
+        label: 'Yiminghe'
+    }
+])
+
+const focus = () => {
+    console.log('focus')
+}
+
+const handleChange = (value: string) => {
+    console.log(`selected ${value}`)
+}
+</script>
+
+<template>
+    <div class="register-chatbot w-9/12 m-auto">
+        <div class="">
+            <form>
+                <div class="">
+                    <p class="text-xl">1.Thông tin doanh nghiệp:</p>
+                    <div class="flex flex-wrap justify-center">
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div>
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div>
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div>
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-xl">2.Thông tin chatbot:</p>
+                    <div class="flex flex-wrap justify-center">
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Tên chatbot</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div>
+                        <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Loại hình dịch vụ</p>
+                            <Select
+                                ref="select"
+                                v-model:value="value1"
+                                :options="options1"
+                                @focus="focus"
+                                @change="handleChange(value1)"
+                                class="border-2 w-96 border-black rounded text-sm h-10 items-center flex"
+                            >
+                            </Select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<style></style>
