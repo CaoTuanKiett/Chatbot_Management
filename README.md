@@ -4,7 +4,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Demo
 
-[https://vuejs-boilerplate-gdscdut.vercel.app/](https://vuejs-boilerplate-gdscdut.vercel.app/)
+[https://chatbot-management-sigma.vercel.app/](https://chatbot-management-sigma.vercel.app/)
 
 ## Mock account
 
