@@ -5,25 +5,38 @@ import { ref } from 'vue'
 
 const inputValue = ref('')
 const value1 = ref('lucy')
+
 const options1 = ref<SelectProps['options']>([
     {
-        value: 'jack',
-        label: 'Jack'
+        value: '1',
+        label: 'Nhà Hàng'
     },
     {
-        value: 'lucy',
-        label: 'Lucy'
+        value: '2',
+        label: 'Khách Sạn'
     },
     {
-        value: 'disabled',
-        label: 'Disabled',
+        value: '3',
+        label: 'Khu nghỉ dưỡng',
         disabled: true
     },
     {
-        value: 'yiminghe',
-        label: 'Yiminghe'
+        value: '4',
+        label: 'Homestay'
     }
 ])
+
+const dataInfo = ref({
+    name: '',
+    type: '',
+    service: 'Nhà Hàng'
+})
+
+const fetchData = () => {
+    console.log('Fetching data Information...')
+}
+
+defineExpose({ fetchData })
 
 const focus = () => {
     console.log('focus')
@@ -35,7 +48,7 @@ const handleChange = (value: string) => {
 </script>
 
 <template>
-    <div class="register-chatbot w-9/12 m-auto">
+    <div class="w-9/12 m-auto">
         <div class="">
             <form>
                 <div class="">
@@ -49,26 +62,33 @@ const handleChange = (value: string) => {
                             />
                         </div>
                         <div class="px-6 py-4">
-                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <p class="text-sm text-black font-semibold pb-1">Địa chỉ:</p>
                             <input
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
                         </div>
                         <div class="px-6 py-4">
-                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <p class="text-sm text-black font-semibold pb-1">Email:</p>
                             <input
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
                         </div>
                         <div class="px-6 py-4">
-                            <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
+                            <p class="text-sm text-black font-semibold pb-1">SĐT:</p>
                             <input
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
                         </div>
+                        <!-- <div class="px-6 py-4">
+                            <p class="text-sm text-black font-semibold pb-1">Mã số thuế:</p>
+                            <input
+                                type="text"
+                                class="border-2 w-96 border-black rounded p-2 text-sm"
+                            />
+                        </div> -->
                     </div>
                 </div>
                 <div>
@@ -85,10 +105,10 @@ const handleChange = (value: string) => {
                             <p class="text-sm text-black font-semibold pb-1">Loại hình dịch vụ</p>
                             <Select
                                 ref="select"
-                                v-model:value="value1"
+                                v-model:value="dataInfo.service"
                                 :options="options1"
                                 @focus="focus"
-                                @change="handleChange(value1)"
+                                @change="handleChange(dataInfo.service)"
                                 class="border-2 w-96 border-black rounded text-sm h-10 items-center flex"
                             >
                             </Select>

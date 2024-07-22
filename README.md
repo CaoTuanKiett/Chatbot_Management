@@ -10,10 +10,10 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ```
 admin@example.com
-very_strong_password_123A@
+123456
 ------
 user@example.com
-very_strong_password_123A@
+123456
 ```
 
 ## Recommended IDE Setup

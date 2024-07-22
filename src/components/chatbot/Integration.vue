@@ -17,13 +17,19 @@ const plainOptions = [
         value: 'booking'
     }
 ]
+
+const fetchData = () => {
+    console.log('Fetching data Integration...')
+}
+
+defineExpose({ fetchData })
 </script>
 
 <template>
-    <div class="register-chatbot w-9/12 m-auto">
+    <div class="integration w-9/12 m-auto">
         <div>
             <p class="text-xl">1.Phương thức tích hợp</p>
-            <RadioGroup v-model:value="value1" :options="plainOptions" class="flex flex-col" />
+            <RadioGroup v-model:value="value1" :options="plainOptions" class="flex flex-col p-4" />
         </div>
         <div>
             <p class="text-xl">2.Thông tin tài khoản</p>
@@ -49,4 +55,8 @@ const plainOptions = [
     </div>
 </template>
 
-<style></style>
+<style>
+.integration .ant-radio-wrapper {
+    margin-bottom: 10px;
+}
+</style>

@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import FileData from '@/components/configData/FileData.vue';
-import ImportFileData from '@/components/configData/ImportFileData.vue';
-import { TabPane, Tabs } from 'ant-design-vue';
-import { ref } from 'vue';
+import FileData from '@/components/configData/FileData.vue'
+import ImportFileData from '@/components/configData/ImportFileData.vue'
+import { TabPane, Tabs } from 'ant-design-vue'
+import { ref } from 'vue'
+import LinkData from '../configData/LinkData.vue'
 // const inputValue = ref('')
 // const value1 = ref('')
 const activeKey = ref('1')
+
+const fetchData = () => {
+    console.log('Fetching data ConfigData...')
+}
+
+defineExpose({ fetchData })
 </script>
 
 <template>
@@ -17,16 +24,14 @@ const activeKey = ref('1')
             <TabPane key="2" tab="File" class="w-96">
                 <ImportFileData />
             </TabPane>
-            <TabPane key="3" tab="Câu hỏi" class="w-96"
-                ><p>Content of Tab Pane 2</p>
+            <TabPane key="3" tab="Câu hỏi" class="w-96">
                 <p>Content of Tab Pane 2</p>
-                <p>Content of Tab Pane 2</p></TabPane
-            >
-            <TabPane key="4" tab="Link" class="w-96"
-                ><p>Content of Tab Pane 2</p>
                 <p>Content of Tab Pane 2</p>
-                <p>Content of Tab Pane 2</p></TabPane
-            >
+                <p>Content of Tab Pane 2</p>
+            </TabPane>
+            <TabPane key="4" tab="Link" class="w-96">
+                <LinkData />
+            </TabPane>
         </Tabs>
     </div>
 </template>

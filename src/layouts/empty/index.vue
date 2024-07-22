@@ -12,7 +12,7 @@ setTimeout(() => {
 <template>
     <Curtain :show="showCurtain" />
     <Navbar />
-    <div class="mt-28">
+    <div class="mt-28 mb-16">
         <slot />
     </div>
 </template>

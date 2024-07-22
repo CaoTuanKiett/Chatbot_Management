@@ -10,13 +10,13 @@ const USERS = [
     {
         id: 1,
         email: 'admin@example.com',
-        password: 'very_strong_password_123A@',
+        password: '123456',
         role: ROLE.ADMIN
     },
     {
         id: 2,
         email: 'user@example.com',
-        password: 'very_strong_password_123A@',
+        password: '123456',
         role: ROLE.USER
     }
 ]
