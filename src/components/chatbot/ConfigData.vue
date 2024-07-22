@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FileData from '@/components/configData/FileData.vue'
 import ImportFileData from '@/components/configData/ImportFileData.vue'
+import QAData from '@/components/configData/QAData.vue'
 import { TabPane, Tabs } from 'ant-design-vue'
 import { ref } from 'vue'
 import LinkData from '../configData/LinkData.vue'
@@ -25,9 +26,7 @@ defineExpose({ fetchData })
                 <ImportFileData />
             </TabPane>
             <TabPane key="3" tab="Câu hỏi" class="w-96">
-                <p>Content of Tab Pane 2</p>
-                <p>Content of Tab Pane 2</p>
-                <p>Content of Tab Pane 2</p>
+               <QAData />
             </TabPane>
             <TabPane key="4" tab="Link" class="w-96">
                 <LinkData />

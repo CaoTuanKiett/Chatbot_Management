@@ -2,14 +2,15 @@
 import { ref } from 'vue';
 
 interface Input {
+    question: string,
     content: string
 }
 
-const inputs = ref<Input[]>([{ content: '' }])
-const combinedData = ref<string[]>([])
+const inputs = ref<Input[]>([{ question: '', content: '' }])
+const combinedData = ref<any[]>([])
 
 const addInput = () => {
-    inputs.value.push({ content: '' })
+    inputs.value.push({ question: '', content: '' })
 }
 
 const removeInput = (index: number) => {
@@ -18,8 +19,24 @@ const removeInput = (index: number) => {
 
 const importData = () => {
     const filteredInputs = inputs.value.filter((input) => input.content.trim() !== '')
-    combinedData.value.push(...filteredInputs.map((input) => input.content))
-    inputs.value = [{ content: '' }]
+    console.log("filteredInputs", filteredInputs);
+    
+    // combinedData.value = filteredInputs.map((input) => {
+    //     return {
+    //         question: input.question,
+    //         content: input.content
+    //     }
+    // })
+
+    combinedData.value.push(...filteredInputs.map((input) => {
+        return {
+            question: input.question,
+            content: input.content
+        }
+    }))
+
+    
+    inputs.value = [{ question: '', content: '' }]
 }
 
 const clearAll = () => {
@@ -37,7 +54,7 @@ const removeData = (index: number) => {
         <div>
             <div v-for="(input, index) in inputs" :key="index" class="mb-4">
                 <div>
-                    <p class="text-sm font-semibold">Văn bản {{ index + 1 }}</p>
+                    <p class="text-sm font-semibold mb-1">Câu hỏi {{ index + 1 }}</p>
                     <div class="relative">
                         <img
                             v-if="index !== 0"
@@ -46,11 +63,17 @@ const removeData = (index: number) => {
                             alt="delete"
                             class="absolute top-[-8px] right-[-8px] cursor-pointer shadow-sm"
                         />
+                        <input 
+                            type="text" 
+                            v-model="input.question"
+                            placeholder="Nhập câu hỏi"
+                            class="border-[1px] border-black rounded p-2 text-sm w-full mb-2"
+                        >
                         <textarea
                             v-model="input.content"
                             class="border-[1px] border-black rounded p-2 text-sm w-full"
                             rows="4"
-                            placeholder="Nhập nội dung"
+                            placeholder="Nhập câu trả lời"
                         ></textarea>
                     </div>
                 </div>
@@ -62,7 +85,7 @@ const removeData = (index: number) => {
                 class="flex justify-center items-center px-4 py-2 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn"
             >
                 <img src="/icons/plus.svg" alt="add" class="pr-2" />
-                Thêm văn bản
+                Thêm câu hỏi
             </button>
             <button
                 @click="importData"
@@ -91,7 +114,10 @@ const removeData = (index: number) => {
                 >
                     <div class="flex items-center space-x-2">
                         <p class="border-r-2 border-black pr-2">00{{ index + 1 }}</p>
-                        <p>{{ item }}</p>
+                        <div>
+                            <p><span class=" font-semibold">Câu hỏi:</span>{{ item.question }} ?</p>
+                            <p><span class=" font-semibold">Đáp án:</span>{{ item.content }}</p>
+                        </div>
                     </div>
                     <div>
                         <img
