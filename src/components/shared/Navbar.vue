@@ -48,7 +48,7 @@ const auth = useAuthStore()
                             </li>
                             <li>
                                 <RouterLink
-                                    to="/#"
+                                    :to="RoutePath.ChatbotManagement"
                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
                                 >
                                     <span>Quản lý Chatbot</span>
