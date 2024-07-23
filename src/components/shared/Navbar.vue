@@ -4,7 +4,8 @@ import ButtonRegisterChatbot from '@/components/common/ButtonRegisterChatbot.vue
 import { RoutePath } from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { Icon } from '@iconify/vue'
-import { computed, watch } from 'vue'
+import { Button, Dropdown, Menu, MenuItem } from 'ant-design-vue'
+import { computed, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -16,13 +17,28 @@ watch(fullPath, (newValue, oldValue) => {
     console.log('fullPath', newValue, oldValue)
 })
 
+const activeScroll = ref(false)
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        activeScroll.value = true
+        console.log('activeScroll', activeScroll.value)
+    } else {
+        activeScroll.value = false
+    }
+})
+
 const auth = useAuthStore()
 </script>
 
 <template>
     <div class="bg-white drop-shadow-lg fixed top-0 left-0 right-0 z-10">
         <div class="max-w-screen-xl mx-auto px-5">
-            <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+            <header
+                :class="`flex flex-col lg:flex-row justify-between items-center my-4 transition ease-in-out delay-350 duration-300 ${
+                    activeScroll ? 'activeScroll' : ''
+                }`"
+            >
                 <div class="flex w-full lg:w-auto items-center justify-between">
                     <a href="/" class="flex items-center">
                         <img src="/images/logo-vaias.png" alt="logo-vaias" class="w-20 h-14" />
@@ -94,9 +110,44 @@ const auth = useAuthStore()
                             </RouterLink>
                         </div>
                         <div v-else class="hidden lg:flex items-center gap-4">
-                            <button @click="auth.logout">
-                                {{ $t('landingpage.navbar.logout') }}
-                            </button>
+                            <div>
+                                <Dropdown :trigger="['click']">
+                                    <div
+                                        @click.prevent
+                                        :class="`flex items-center py-2 px-3 rounded-lg shadow-md cursor-pointer transition ease-in-out delay-350 duration-300 ${
+                                            activeScroll ? 'activeScroll-user' : ''
+                                        }`"
+                                    >
+                                        <img
+                                            src="/images/avatar.jpg"
+                                            alt="avatar"
+                                            class="avatar w-14 rounded-full mr-3"
+                                        />
+                                        <div>
+                                            <p class="font-semibold">TUAN KIET</p>
+                                            <p class="text-sm">Admin</p>
+                                        </div>
+                                    </div>
+                                    <template #overlay>
+                                        <Menu class="p-2">
+                                            <MenuItem>
+                                                <button @click="auth.logout">
+                                                    {{ $t('landingpage.navbar.logout') }}
+                                                </button>
+                                            </MenuItem>
+                                            <MenuItem>
+                                                <RouterLink :to="RoutePath.ChatbotManagement">
+                                                    Quản lý Chatbot
+                                                </RouterLink>
+                                            </MenuItem>
+                                        </Menu>
+                                    </template>
+                                    <!-- <Button>
+                                        {{ auth.user?.email }}
+                                        <Icon icon="akar-icons:chevron-down" />
+                                    </Button> -->
+                                </Dropdown>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,4 +156,22 @@ const auth = useAuthStore()
     </div>
 </template>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.activeScroll {
+    // background-color: rgba(255, 255, 255, 0.9);
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    margin: 4px 0 !important;
+}
+
+.activeScroll-user {
+    padding: 2px 12px;
+    border: none;
+    box-shadow: none;
+}
+
+.activeScroll-user .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+</style>

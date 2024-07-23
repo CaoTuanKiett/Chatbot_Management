@@ -41,7 +41,7 @@ defineExpose({ fetchData })
 }
 
 .config-data .ant-tabs-tabpane {
-    width: 100%;
+    width: 100% !important;
     min-height: 50vh;
 }
 

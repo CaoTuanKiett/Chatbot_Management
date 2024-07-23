@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 interface Input {
-    question: string,
+    question: string
     content: string
 }
 
@@ -19,8 +19,8 @@ const removeInput = (index: number) => {
 
 const importData = () => {
     const filteredInputs = inputs.value.filter((input) => input.content.trim() !== '')
-    console.log("filteredInputs", filteredInputs);
-    
+    console.log('filteredInputs', filteredInputs)
+
     // combinedData.value = filteredInputs.map((input) => {
     //     return {
     //         question: input.question,
@@ -28,14 +28,15 @@ const importData = () => {
     //     }
     // })
 
-    combinedData.value.push(...filteredInputs.map((input) => {
-        return {
-            question: input.question,
-            content: input.content
-        }
-    }))
+    combinedData.value.push(
+        ...filteredInputs.map((input) => {
+            return {
+                question: input.question,
+                content: input.content
+            }
+        })
+    )
 
-    
     inputs.value = [{ question: '', content: '' }]
 }
 
@@ -63,12 +64,12 @@ const removeData = (index: number) => {
                             alt="delete"
                             class="absolute top-[-8px] right-[-8px] cursor-pointer shadow-sm"
                         />
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             v-model="input.question"
                             placeholder="Nhập câu hỏi"
                             class="border-[1px] border-black rounded p-2 text-sm w-full mb-2"
-                        >
+                        />
                         <textarea
                             v-model="input.content"
                             class="border-[1px] border-black rounded p-2 text-sm w-full"
@@ -99,15 +100,20 @@ const removeData = (index: number) => {
             <div class="flex justify-between mb-4">
                 <p class="text-lg font-semibold">Data</p>
                 <button
+                    v-if="combinedData.length > 0"
                     @click="clearAll"
-                    class="flex justify-center items-center px-2 py-1 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn"
+                    class="btn-delete flex justify-center items-center px-2 py-1 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                 >
                     <img src="/icons/icon-delete-white.svg" alt="delete all" class="pr-2" />
                     Xóa tất cả
                 </button>
             </div>
             <div>
+                <div v-if="combinedData.length === 0" class="flex justify-center items-center">
+                    <img src="/images/img-noItem.png" alt="no item" class="w-40" />
+                </div>
                 <div
+                    v-else
                     v-for="(item, index) in combinedData"
                     :key="index"
                     class="flex justify-between items-center bg-slate-300 p-2 rounded mb-2"
@@ -115,8 +121,15 @@ const removeData = (index: number) => {
                     <div class="flex items-center space-x-2 text-ellipsis overflow-hidden">
                         <p class="border-r-2 border-black pr-2">00{{ index + 1 }}</p>
                         <div>
-                            <div class="max-w-[484px] text-nowrap flex"><span class="font-semibold text-nowrap">Câu hỏi:</span><p class=" text-ellipsis overflow-hidden">{{ item.question }}</p><span>?</span></div>
-                            <p class="max-w-[484px] text-ellipsis overflow-hidden"><span class=" font-semibold text-nowrap">Đáp án:</span>{{ item.content }}</p>
+                            <div class="max-w-[484px] text-nowrap flex">
+                                <span class="font-semibold text-nowrap">Câu hỏi:</span>
+                                <p class="text-ellipsis overflow-hidden">{{ item.question }}</p>
+                                <span>?</span>
+                            </div>
+                            <p class="max-w-[484px] text-ellipsis overflow-hidden">
+                                <span class="font-semibold text-nowrap">Đáp án:</span
+                                >{{ item.content }}
+                            </p>
                         </div>
                     </div>
                     <div>
@@ -152,75 +165,74 @@ button {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
 .button2 {
-  /* display: inline-block; */
-  transition: all 0.2s ease-in;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  color: #090909;
-  padding: 0.7em 1.7em;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 0.5em;
-  /* background: #e8e8e8; */
-  /* border: 1px solid #e8e8e8; */
-  /* box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff; */
+    /* display: inline-block; */
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    color: #090909;
+    padding: 0.7em 1.7em;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 0.5em;
+    /* background: #e8e8e8; */
+    /* border: 1px solid #e8e8e8; */
+    /* box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff; */
 }
 
 .button2:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+    color: #666;
+    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
 }
 
 .button2:before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) scaleY(1) scaleX(1.25);
-  top: 100%;
-  width: 140%;
-  height: 180%;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
-  display: block;
-  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-  z-index: -1;
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
 }
 
 .button2:after {
-  content: "";
-  position: absolute;
-  left: 55%;
-  transform: translateX(-50%) scaleY(1) scaleX(1.45);
-  top: 180%;
-  width: 160%;
-  height: 190%;
-  background-color: #009087;
-  border-radius: 50%;
-  display: block;
-  transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-  z-index: -1;
+    content: '';
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #009087;
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
 }
 
 .button2:hover {
-  color: #ffffff;
-  font-weight: 600;
-  letter-spacing: 1px;
-  transform: translateY(-2px);
-  /* border: 1px solid #009087; */
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transform: translateY(-2px);
+    /* border: 1px solid #009087; */
 }
 
 .button2:hover:before {
-  top: -35%;
-  background-color: #009087;
-  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+    top: -35%;
+    background-color: #009087;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
 .button2:hover:after {
-  top: -45%;
-  background-color: #009087;
-  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+    top: -45%;
+    background-color: #009087;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 </style>
