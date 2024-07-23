@@ -12,6 +12,6 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "[shellscript]": {
         "editor.defaultFormatter": "foxundermoon.shell-format"
-    },
-    "editor.formatOnSaveMode": "modifications"
+    }
+    // "editor.formatOnSaveMode": "modifications"
 }

@@ -59,8 +59,9 @@ const handleLoginFailed = (errInfo: any) => {
                     v-model:value="loginFormState.email"
                     :placeholder="$t('login.form.email')"
                     auto-complete="off"
+                    class="rounded-3xl border-tk-primary-color p-2"
                 >
-                    <template #prefix> <Icon icon="ph:envelope-simple-bold" /> </template
+                    <template #prefix> <Icon icon="ph:envelope-simple-bold" class="mx-2" /> </template
                 ></Input>
             </FormItem>
 
@@ -76,8 +77,9 @@ const handleLoginFailed = (errInfo: any) => {
                     v-model:value="loginFormState.password"
                     :placeholder="$t('login.form.password')"
                     auto-complete="off"
+                    class="rounded-3xl border-tk-primary-color p-2"
                 >
-                    <template #prefix> <Icon icon="ph:lock-simple-bold" /> </template
+                    <template #prefix> <Icon icon="ph:lock-simple-bold" class="mx-2" /> </template
                 ></Input>
             </FormItem>
 

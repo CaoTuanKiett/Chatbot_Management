@@ -38,18 +38,18 @@ watch(activeKey, (newValue, oldValue) => {
         }
     }
 
-    if (oldValue === '3' && configDataRef.value) {
-        if (typeof configDataRef.value.fetchData === 'function') {
-            configDataRef.value.fetchData()
-        } else {
-            console.error('fetchData is not a function on Information component')
-        }
-    }
+    // if (oldValue === '3' && configDataRef.value) {
+    //     if (typeof configDataRef.value.fetchData === 'function') {
+    //         configDataRef.value.fetchData()
+    //     } else {
+    //         console.error('fetchData is not a function on Information component')
+    //     }
+    // }
 })
 </script>
 
 <template>
-    <div class="register-chatbot">
+    <div class="register-chatbot w-full">
         <div class="max-w-screen-xl">
             <Tabs v-model:activeKey="activeKey" centered class="h-100">
                 <TabPane key="1" tab="Thông tin chung">
@@ -70,7 +70,7 @@ watch(activeKey, (newValue, oldValue) => {
                 <button
                     v-if="activeKey !== '1'"
                     @click="handlePrevTab"
-                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color rounded text-white text-sm font-medium mr-4 shadow-tk-btn"
+                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color rounded text-white text-sm font-medium mr-4 shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                     onclick=""
                 >
                     <img src="/icons/arrow-back.svg" alt="back" class="pr-2" />
@@ -79,7 +79,7 @@ watch(activeKey, (newValue, oldValue) => {
                 <button
                     v-if="activeKey !== '4'"
                     @click="handleNextTab"
-                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color-primary rounded text-white text-sm font-medium shadow-tk-btn"
+                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color-primary rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                 >
                     Tiếp theo
                     <img src="/icons/arrow-back.svg" alt="back" class="pr-2 rotate-180" />
@@ -87,7 +87,7 @@ watch(activeKey, (newValue, oldValue) => {
                 <button
                     v-if="activeKey == '4'"
                     @click="handleNextTab"
-                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color-primary rounded text-white text-sm font-medium shadow-tk-btn"
+                    class="flex justify-center items-center px-4 py-2 bg-tk-btn-color-primary rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                 >
                     Hoàn thành
                     <img src="/icons/complete.svg" alt="back" class="pl-2" />
@@ -97,4 +97,26 @@ watch(activeKey, (newValue, oldValue) => {
     </div>
 </template>
 
-<style></style>
+<style>
+.register-chatbot {
+    padding: 56px 0;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+        rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+        rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+    border-radius: 8px;
+}
+
+.register-chatbot .ant-tabs-tabpane {
+    width: 1280px;
+    min-height: 56vh;
+}
+
+.register-chatbot .ant-tabs-tab-btn {
+    font-size: 16px;
+}
+
+.register-chatbot .ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-weight: 600;
+}
+</style>

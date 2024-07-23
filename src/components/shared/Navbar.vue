@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import LanguageChanger from '@/components/LanguageChanger.vue'
+import ButtonRegisterChatbot from '@/components/common/ButtonRegisterChatbot.vue'
 import { RoutePath } from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { Icon } from '@iconify/vue'
-import { RouterLink } from 'vue-router'
+import { computed, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+
+const route = useRoute()
+console.log('route', route.path)
+
+const fullPath = computed(() => window.location.href)
+
+watch(fullPath, (newValue, oldValue) => {
+    console.log('fullPath', newValue, oldValue)
+})
 
 const auth = useAuthStore()
 </script>
@@ -59,11 +70,12 @@ const auth = useAuthStore()
                                     :to="RoutePath.ChatbotRegister"
                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
                                 >
-                                    <button
+                                    <!-- <button
                                         class="border-2 p-2 px-4 rounded-lg text-sm font-semibold bg-tk-primary-color text-white"
                                     >
                                         Đăng ký Chatbot
-                                    </button>
+                                    </button> -->
+                                    <ButtonRegisterChatbot />
                                 </RouterLink>
                             </li>
                         </ul>

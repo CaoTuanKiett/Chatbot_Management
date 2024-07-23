@@ -26,7 +26,7 @@ defineExpose({ fetchData })
                 <ImportFileData />
             </TabPane>
             <TabPane key="3" tab="Câu hỏi" class="w-96">
-               <QAData />
+                <QAData />
             </TabPane>
             <TabPane key="4" tab="Link" class="w-96">
                 <LinkData />
@@ -38,6 +38,15 @@ defineExpose({ fetchData })
 <style>
 .config-data .ant-tabs-nav-list {
     flex-direction: column !important;
+}
+
+.config-data .ant-tabs-tabpane {
+    width: 100%;
+    min-height: 50vh;
+}
+
+.config-data .border-t-l {
+    border-top-left-radius: 4px;
 }
 .config-data .ant-tabs-content-holder {
     width: 940px;
