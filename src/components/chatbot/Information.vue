@@ -36,7 +36,7 @@ const fetchData = () => {
     console.log('Fetching data Information...')
 }
 
-defineExpose({ fetchData })
+defineExpose({ fetchData, dataInfo })
 
 const focus = () => {
     console.log('focus')

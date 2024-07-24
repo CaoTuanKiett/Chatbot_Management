@@ -29,7 +29,7 @@ const fetchData = () => {
     console.log('Fetching data Integration...')
 }
 
-defineExpose({ fetchData })
+defineExpose({ fetchData, dataIntegration })
 </script>
 
 <template>
