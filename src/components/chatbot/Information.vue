@@ -3,9 +3,6 @@ import type { SelectProps } from 'ant-design-vue'
 import { Select } from 'ant-design-vue'
 import { ref } from 'vue'
 
-const inputValue = ref('')
-const value1 = ref('lucy')
-
 const options1 = ref<SelectProps['options']>([
     {
         value: '1',
@@ -27,8 +24,11 @@ const options1 = ref<SelectProps['options']>([
 ])
 
 const dataInfo = ref({
-    name: '',
-    type: '',
+    nameCompany: '',
+    address: '',
+    email: '',
+    phone: '',
+    nameChatbot: '',
     service: 'Nhà Hàng'
 })
 
@@ -57,6 +57,7 @@ const handleChange = (value: string) => {
                         <div class="px-6 py-4">
                             <p class="text-sm text-black font-semibold pb-1">Tên doanh nghiệp:</p>
                             <input
+                                v-model="dataInfo.nameCompany"
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
@@ -64,6 +65,7 @@ const handleChange = (value: string) => {
                         <div class="px-6 py-4">
                             <p class="text-sm text-black font-semibold pb-1">Địa chỉ:</p>
                             <input
+                                v-model="dataInfo.address"
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
@@ -71,6 +73,7 @@ const handleChange = (value: string) => {
                         <div class="px-6 py-4">
                             <p class="text-sm text-black font-semibold pb-1">Email:</p>
                             <input
+                                v-model="dataInfo.email"
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
@@ -78,6 +81,7 @@ const handleChange = (value: string) => {
                         <div class="px-6 py-4">
                             <p class="text-sm text-black font-semibold pb-1">SĐT:</p>
                             <input
+                                v-model="dataInfo.phone"
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />
@@ -97,6 +101,7 @@ const handleChange = (value: string) => {
                         <div class="px-6 py-4">
                             <p class="text-sm text-black font-semibold pb-1">Tên chatbot</p>
                             <input
+                                v-model="dataInfo.nameChatbot"
                                 type="text"
                                 class="border-2 w-96 border-black rounded p-2 text-sm"
                             />

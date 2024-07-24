@@ -5,6 +5,7 @@ import { ref, watch } from 'vue'
 import ConfigData from '@/components/chatbot/ConfigData.vue'
 import Information from '@/components/chatbot/Information.vue'
 import Integration from '@/components/chatbot/Integration.vue'
+import ChatExample from '@/components/common/ChatExample.vue'
 
 const inputValue = ref('')
 const activeKey = ref('1')
@@ -19,7 +20,7 @@ const handlePrevTab = () => {
 }
 const informationRef = ref<InstanceType<typeof Information> | null>(null)
 const integrationRef = ref<InstanceType<typeof Integration> | null>(null)
-const configDataRef = ref<InstanceType<typeof Integration> | null>(null)
+const configDataRef = ref<InstanceType<typeof ConfigData> | null>(null)
 
 watch(activeKey, (newValue, oldValue) => {
     if (oldValue === '1' && informationRef.value) {
@@ -38,13 +39,13 @@ watch(activeKey, (newValue, oldValue) => {
         }
     }
 
-    // if (oldValue === '3' && configDataRef.value) {
-    //     if (typeof configDataRef.value.fetchData === 'function') {
-    //         configDataRef.value.fetchData()
-    //     } else {
-    //         console.error('fetchData is not a function on Information component')
-    //     }
-    // }
+    if (oldValue === '3' && configDataRef.value) {
+        if (typeof configDataRef.value.fetchData === 'function') {
+            configDataRef.value.fetchData()
+        } else {
+            console.error('fetchData is not a function on Information component')
+        }
+    }
 })
 </script>
 
@@ -61,7 +62,7 @@ watch(activeKey, (newValue, oldValue) => {
                 <TabPane key="3" tab="Dữ liệu">
                     <ConfigData ref="configDataRef" />
                 </TabPane>
-                <TabPane key="4" tab="Thử nghiệm">Content of Tab Pane 3</TabPane>
+                <TabPane key="4" tab="Thử nghiệm"><ChatExample /></TabPane>
             </Tabs>
         </div>
 

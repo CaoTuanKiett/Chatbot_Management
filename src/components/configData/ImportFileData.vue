@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { InboxOutlined } from '@ant-design/icons-vue';
-import type { UploadChangeParam } from 'ant-design-vue';
-import { message, UploadDragger } from 'ant-design-vue';
-import { ref } from 'vue';
+import { InboxOutlined } from '@ant-design/icons-vue'
+import type { UploadChangeParam } from 'ant-design-vue'
+import { message, UploadDragger } from 'ant-design-vue'
+import { ref } from 'vue'
 const fileList = ref([])
+const data = ref([])
 const handleChange = (info: UploadChangeParam) => {
     const status = info.file.status
     if (status !== 'uploading') {
-        console.log("info.file", info.file)
-        console.log(", info.fileList", info.fileList)
+        console.log('info.file', info.file)
+        console.log(', info.fileList', info.fileList)
     }
     if (status === 'done') {
         message.success(`${info.file.name} file uploaded successfully.`)
@@ -19,6 +20,8 @@ const handleChange = (info: UploadChangeParam) => {
 function handleDrop(e: DragEvent) {
     console.log(e)
 }
+
+defineExpose({ fileList })
 </script>
 <template>
     <div class="import-file">
@@ -27,21 +30,20 @@ function handleDrop(e: DragEvent) {
                 v-model:fileList="fileList"
                 name="file"
                 :multiple="true"
-                @change="handleChange"
                 @drop="handleDrop"
+                preview
                 class="rounded w-full h-full"
+                accept=".pdf,.doc,.docx,.txt"
             >
                 <p class="ant-upload-drag-icon">
                     <inbox-outlined></inbox-outlined>
                 </p>
                 <p class="ant-upload-text">Kéo và thả file vào đây hoặc click để chọn file</p>
-                <p class="ant-upload-hint">
-                    Các loại tệp được hỗ trợ: .pdf, .doc, .docx, .txt
-                </p>
+                <p class="ant-upload-hint">Các loại tệp được hỗ trợ: .pdf, .doc, .docx, .txt</p>
             </UploadDragger>
         </div>
 
-        <div class="flex justify-end my-4">
+        <!-- <div class="flex justify-end my-4">
             <button
                 class="flex justify-center items-center px-4 py-2 bg-tk-btn-color rounded text-white text-sm font-medium mr-4 shadow-tk-btn"
                 onclick=""
@@ -49,7 +51,7 @@ function handleDrop(e: DragEvent) {
                 <img src="/icons/import.svg" alt="back" class="pr-2" />
                 Nhập
             </button>
-        </div>
+        </div> -->
 
         <div class="mt-8 bg-white p-4 rounded">
             <div class="flex justify-between mb-4">
@@ -64,17 +66,22 @@ function handleDrop(e: DragEvent) {
             </div>
 
             <div>
-                <div class="flex justify-between items-center bg-slate-300 p-2 rounded">
-                    <div class="flex items-center">
-                        <p>001</p>
-                        <p>Hoàng Sa Trường Sa là của Việt Nam</p>
-                    </div>
-                    <div>
-                        <img
-                            src="/icons/icon-delete-black.svg"
-                            alt="delete"
-                            class="cursor-pointer"
-                        />
+                <div v-if="data.length === 0" class="flex justify-center items-center">
+                    <img src="/images/img-noItem.png" alt="no item" class="w-40" />
+                </div>
+                <div v-else v-for="(item, index) in data" :key="index">
+                    <div class="flex justify-between items-center bg-slate-300 p-2 rounded">
+                        <div class="flex items-center">
+                            <p>001</p>
+                            <p>Hoàng Sa Trường Sa là của Việt Nam</p>
+                        </div>
+                        <div>
+                            <img
+                                src="/icons/icon-delete-black.svg"
+                                alt="delete"
+                                class="cursor-pointer"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

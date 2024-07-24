@@ -3,14 +3,50 @@ import FileData from '@/components/configData/FileData.vue'
 import ImportFileData from '@/components/configData/ImportFileData.vue'
 import QAData from '@/components/configData/QAData.vue'
 import { TabPane, Tabs } from 'ant-design-vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import LinkData from '../configData/LinkData.vue'
 // const inputValue = ref('')
 // const value1 = ref('')
 const activeKey = ref('1')
 
+const fileDataRef = ref<InstanceType<typeof FileData> | null>(null)
+const importFileDataRef = ref<InstanceType<typeof ImportFileData> | null>(null)
+const qaDataRef = ref<InstanceType<typeof QAData> | null>(null)
+const linkDataRef = ref<InstanceType<typeof LinkData> | null>(null)
+
+const dataConfig = ref({
+    dataFile: fileDataRef.value?.dataFile,
+    dataImportFile: importFileDataRef.value?.fileList,
+    dataLink: linkDataRef.value?.dataLink,
+    dataQA: qaDataRef.value?.dataQA
+})
+
+// onMounted(() => {
+//     console.log('ConfigData mounted', dataConfig.value)
+//     dataConfig.value = {
+//         dataFile: fileDataRef.value?.dataFile,
+//         dataImportFile: importFileDataRef.value?.fileList,
+//         dataLink: linkDataRef.value?.dataLink,
+//         dataQA: qaDataRef.value?.dataQA
+//     }
+// })
+
+onMounted(() => {
+    updateDataConfig()
+})
+
+const updateDataConfig = () => {
+    dataConfig.value = {
+        dataFile: fileDataRef.value?.dataFile || [],
+        dataImportFile: importFileDataRef.value?.fileList || [],
+        dataLink: linkDataRef.value?.dataLink || [],
+        dataQA: qaDataRef.value?.dataQA || []
+    }
+}
+
 const fetchData = () => {
-    console.log('Fetching data ConfigData...')
+    updateDataConfig()
+    console.log('Fetching data ConfigData...', dataConfig.value)
 }
 
 defineExpose({ fetchData })
@@ -20,16 +56,16 @@ defineExpose({ fetchData })
     <div class="config-data w-9/12 m-auto">
         <Tabs v-model:activeKey="activeKey" class="flex flex-row">
             <TabPane key="1" tab="Văn bản" class="w-96">
-                <FileData />
+                <FileData ref="fileDataRef" />
             </TabPane>
             <TabPane key="2" tab="File" class="w-96">
-                <ImportFileData />
+                <ImportFileData ref="importFileDataRef" />
             </TabPane>
             <TabPane key="3" tab="Câu hỏi" class="w-96">
-                <QAData />
+                <QAData ref="qaDataRef" />
             </TabPane>
             <TabPane key="4" tab="Link" class="w-96">
-                <LinkData />
+                <LinkData ref="linkDataRef" />
             </TabPane>
         </Tabs>
     </div>

@@ -6,7 +6,7 @@ interface Input {
 }
 
 const inputs = ref<Input[]>([{ content: '' }])
-const combinedData = ref<string[]>([])
+const dataFile = ref<string[]>([])
 
 const addInput = () => {
     inputs.value.push({ content: '' })
@@ -18,18 +18,20 @@ const removeInput = (index: number) => {
 
 const importData = () => {
     const filteredInputs = inputs.value.filter((input) => input.content.trim() !== '')
-    combinedData.value.push(...filteredInputs.map((input) => input.content))
+    dataFile.value.push(...filteredInputs.map((input) => input.content))
     inputs.value = [{ content: '' }]
 }
 
 const clearAll = () => {
-    combinedData.value = []
+    dataFile.value = []
     // inputs.value = [{ content: '' }]
 }
 
 const removeData = (index: number) => {
-    combinedData.value.splice(index, 1)
+    dataFile.value.splice(index, 1)
 }
+
+defineExpose({ dataFile })
 </script>
 
 <template>
@@ -76,7 +78,7 @@ const removeData = (index: number) => {
             <div class="flex justify-between mb-4">
                 <p class="text-lg font-semibold">Data</p>
                 <button
-                    v-if="combinedData.length > 0"
+                    v-if="dataFile.length > 0"
                     @click="clearAll"
                     class="btn-delete flex justify-center items-center px-2 py-1 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                 >
@@ -85,12 +87,12 @@ const removeData = (index: number) => {
                 </button>
             </div>
             <div>
-                <div v-if="combinedData.length === 0" class="flex justify-center items-center">
+                <div v-if="dataFile.length === 0" class="flex justify-center items-center">
                     <img src="/images/img-noItem.png" alt="no item" class="w-40" />
                 </div>
                 <div
                     v-else
-                    v-for="(item, index) in combinedData"
+                    v-for="(item, index) in dataFile"
                     :key="index"
                     class="flex justify-between items-center bg-slate-300 p-2 rounded mb-2"
                 >
@@ -151,7 +153,9 @@ button {
 
 .button2:active {
     color: #666;
-    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+    box-shadow:
+        inset 4px 4px 12px #c5c5c5,
+        inset -4px -4px 12px #ffffff;
 }
 
 .button2:before {

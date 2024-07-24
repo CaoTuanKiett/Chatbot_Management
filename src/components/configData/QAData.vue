@@ -7,7 +7,7 @@ interface Input {
 }
 
 const inputs = ref<Input[]>([{ question: '', content: '' }])
-const combinedData = ref<any[]>([])
+const dataQA = ref<any[]>([])
 
 const addInput = () => {
     inputs.value.push({ question: '', content: '' })
@@ -21,14 +21,14 @@ const importData = () => {
     const filteredInputs = inputs.value.filter((input) => input.content.trim() !== '')
     console.log('filteredInputs', filteredInputs)
 
-    // combinedData.value = filteredInputs.map((input) => {
+    // dataQA.value = filteredInputs.map((input) => {
     //     return {
     //         question: input.question,
     //         content: input.content
     //     }
     // })
 
-    combinedData.value.push(
+    dataQA.value.push(
         ...filteredInputs.map((input) => {
             return {
                 question: input.question,
@@ -41,13 +41,15 @@ const importData = () => {
 }
 
 const clearAll = () => {
-    combinedData.value = []
+    dataQA.value = []
     // inputs.value = [{ content: '' }]
 }
 
 const removeData = (index: number) => {
-    combinedData.value.splice(index, 1)
+    dataQA.value.splice(index, 1)
 }
+
+defineExpose({ dataQA })
 </script>
 
 <template>
@@ -100,7 +102,7 @@ const removeData = (index: number) => {
             <div class="flex justify-between mb-4">
                 <p class="text-lg font-semibold">Data</p>
                 <button
-                    v-if="combinedData.length > 0"
+                    v-if="dataQA.length > 0"
                     @click="clearAll"
                     class="btn-delete flex justify-center items-center px-2 py-1 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                 >
@@ -109,12 +111,12 @@ const removeData = (index: number) => {
                 </button>
             </div>
             <div>
-                <div v-if="combinedData.length === 0" class="flex justify-center items-center">
+                <div v-if="dataQA.length === 0" class="flex justify-center items-center">
                     <img src="/images/img-noItem.png" alt="no item" class="w-40" />
                 </div>
                 <div
                     v-else
-                    v-for="(item, index) in combinedData"
+                    v-for="(item, index) in dataQA"
                     :key="index"
                     class="flex justify-between items-center bg-slate-300 p-2 rounded mb-2"
                 >
@@ -183,7 +185,9 @@ button {
 
 .button2:active {
     color: #666;
-    box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+    box-shadow:
+        inset 4px 4px 12px #c5c5c5,
+        inset -4px -4px 12px #ffffff;
 }
 
 .button2:before {
