@@ -13,7 +13,7 @@ const inputs = ref<Input[]>([{ content: '' }])
 const inputUrl = ref('')
 const dataLink = ref<string[]>([])
 
-const showModal = (item) => {
+const showModal = (item: string) => {
     open.value = true
     inputUrl.value = item
 }
