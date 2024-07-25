@@ -19,6 +19,9 @@ export default {
                 'vue-card-active': '0 8px 16px 0 rgba(0,0,0,0.10)',
                 'tk-btn-2':
                     'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px'
+            },
+            fontFamily: {
+                montserrat: ['Montserrat', 'sans-serif']
             }
         }
     },

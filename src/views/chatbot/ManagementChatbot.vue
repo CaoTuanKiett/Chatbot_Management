@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 // import {formatDataConfig} from '@/utils/index'
 import ChatbotItem from '@/components/common/ChatbotItem.vue'
-import { AutoComplete, InputSearch } from 'ant-design-vue'
+// import { AutoComplete, InputSearch } from 'ant-design-vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 interface Option {
@@ -11,7 +11,7 @@ interface Option {
     count: number
 }
 const router = useRouter()
-const value = ref('')
+// const value = ref('')
 const dataSource = ref<Option[]>([])
 const dataChatbot = ref<any>([])
 // const onSelect = (value: string) => {
@@ -53,16 +53,15 @@ const searchResult = (query: string): Option[] => {
             count: getRandomInt(200, 100)
         }))
 }
-const handleSearch = (val: string) => {
-    dataSource.value = val ? searchResult(val) : []
-}
+// const handleSearch = (val: string) => {
+//     dataSource.value = val ? searchResult(val) : []
+// }
 
-const isChecked = ref(true)
+// const isChecked = ref(true)
 
-const toggleCheckbox = () => {
-    console.log('heheh')
-
-    isChecked.value = !isChecked.value
+const toggleCheckbox = (item: any) => {
+    item.status = !item.status
+    // isChecked.value = !isChecked.value
 }
 
 const handleSetting = (item: any) => {
@@ -81,9 +80,52 @@ const handleDelete = (item: any) => {
 </script>
 
 <template>
-    <div class="managemnt-chatbot">
-        <div>
-            <AutoComplete
+    <div class="managemnt-chatbot w-full px-60 h-screen">
+        <div class="flex justify-between mb-10">
+            <h1 class="text-lg font-semibold">Quản lý chatbot:</h1>
+            <form class="form relative">
+                <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
+                    <svg
+                        width="20"
+                        height="18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        role="img"
+                        aria-labelledby="search"
+                        class="w-5 h-5 text-gray-700"
+                    >
+                        <path
+                            d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                            stroke="currentColor"
+                            stroke-width="1.333"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </button>
+                <input
+                    class="input w-80 rounded-full px-9 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md border-gray-200"
+                    placeholder="Search..."
+                    required="true"
+                    type="text"
+                />
+                <button type="reset" class="absolute right-3 -translate-y-1/2 top-1/2 p-1">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                </button>
+            </form>
+            <!-- <AutoComplete
                 v-model:value="value"
                 :dropdown-match-select-width="252"
                 style="width: 300px"
@@ -106,10 +148,9 @@ const handleDelete = (item: any) => {
                     </div>
                 </template>
                 <InputSearch size="large" placeholder="input here" enter-button></InputSearch>
-            </AutoComplete>
+            </AutoComplete> -->
         </div>
         <div>
-            <h1>Quản lý chatbot:</h1>
             <div>
                 <!-- <div class="chatbot border-2 border-black rounded-lg p-4 flex w-[900px]">
                     <img
@@ -189,7 +230,6 @@ const handleDelete = (item: any) => {
                     v-for="(item, index) in dataChatbot"
                     :key="index"
                     :item="item"
-                    :isChecked="isChecked"
                     :toggleCheckbox="toggleCheckbox"
                     :handleSetting="handleSetting"
                     :handleDelete="handleDelete"
@@ -200,6 +240,12 @@ const handleDelete = (item: any) => {
 </template>
 
 <style>
+.managemnt-chatbot {
+    padding: 148px 190px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+        rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+
 .checkbox-wrapper-22 {
     display: inline-block;
     height: 25px;

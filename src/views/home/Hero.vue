@@ -1,46 +1,40 @@
 <script setup lang="ts">
 import { RoutePath } from '@/router'
-import { Icon } from '@iconify/vue'
+// import { Icon } from '@iconify/vue'
 import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-    <main class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24">
-        <div class="py-6 md:order-1 hidden md:block">
-            <img class="w-full" src="/images/hero.png" alt="Astronaut in the air" loading="eager" />
-        </div>
-        <div>
-            <h1
-                class="text-vue text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter"
-            >
-                {{ $t('home.hero.welcome') }}
-            </h1>
-            <p class="text-lg mt-4 text-slate-600 max-w-xl">
-                {{ $t('home.hero.secondary') }}
+    <div class="hero w-full h-[700px] relative bg-slate-300">
+        <div class="hero-container w-full h-full flex flex-col items-start justify-center pl-40">
+            <h3 class="text-6xl font-semibold text-white mb-6">
+                Tối ưu hóa du lịch,<br />
+                nâng tầm trải nghiệm
+            </h3>
+            <p class="text-xl text-white mb-6 font-thin">
+                Tự động hóa hệ thống, giảm chi phí, tối ưu vận hành <br />
+                và nâng cao trải nghiệm khách hàng với dịch vụ AI 24/7.
             </p>
-            <div class="mt-6 flex flex-col sm:flex-row gap-3">
-                <RouterLink
-                    :to="RoutePath.ChatbotRegister"
-                    class="flex gap-1 items-center justify-center rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 bg-vue text-white hover:bg-vue-shade border-2 border-transparent px-5 py-2.5"
-                    rel="noopener"
-                >
-                    <!-- {{ $t('home.hero.start_now') }} -->
-                    {{ $t('home.hero.register_chatbots') }}
-                    <Icon icon="ph:arrow-up-right" />
-                </RouterLink>
-                <a
-                    size="lg"
-                    rel="noopener"
-                    class="flex gap-1 items-center justify-center rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 bg-white border-2 border-vue hover:bg-gray-100 text-vue px-5 py-2.5"
-                    target="_blank"
-                    href="#"
-                >
-                    {{ $t('home.hero.learn_more') }}
-                    <Icon icon="ph:arrow-up-right" />
-                </a>
-            </div>
+            <RouterLink
+                :to="RoutePath.ChatbotRegister"
+                class="flex bg-[#f6f1f1] justify-center items-center px-3 py-1 rounded-md shadow-tk-btn-2"
+            >
+                <img src="/icons/icon-bot.svg" alt="icon-bot" />
+                <span class="text-[#0879A6] font-semibold ml-2">TẠO CHATBOT CHO DOANH NGHIỆP</span>
+            </RouterLink>
         </div>
-    </main>
+        <img src="/images/hero-cloud.png" alt="bg-hero" class="absolute bottom-0 right-0" />
+        <img src="/images/bot.png" alt="bg-hero" class="absolute bottom-40 right-40 w-96" />
+    </div>
 </template>
 
-<style></style>
+<style>
+.hero {
+    background-image: url('/images/HeroPage.png');
+}
+
+.hero-container {
+    /* height: 100%; */
+    /* background-image: image('/images/bg-hero.png'); */
+}
+</style>

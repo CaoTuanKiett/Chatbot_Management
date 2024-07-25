@@ -161,6 +161,7 @@ const handleFinish = () => {
 
     const data = {
         id: Date.now(),
+        status: 'true',
         dataInfo: {
             nameCompany: informationRef.value?.dataInfo?.nameCompany,
             address: informationRef.value?.dataInfo?.address,
@@ -294,7 +295,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="register-chatbot w-full">
+    <div class="register-chatbot w-full h-screen pt-28 pb-16">
         <div class="max-w-screen-xl">
             <Tabs v-model:activeKey="activeKey" centered class="h-100">
                 <TabPane key="1" tab="Thông tin chung">
@@ -347,12 +348,10 @@ onMounted(() => {
 
 <style>
 .register-chatbot {
-    padding: 56px 0;
-    box-shadow:
-        rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-        rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    padding: 148px 0;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
         rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-    border-radius: 8px;
+    /* border-radius: 8px; */
 }
 
 .register-chatbot .ant-tabs-tabpane {

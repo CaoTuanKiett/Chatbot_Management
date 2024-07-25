@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { InboxOutlined } from '@ant-design/icons-vue'
-import type { UploadChangeParam } from 'ant-design-vue'
-import { message, UploadDragger } from 'ant-design-vue'
+import { UploadDragger } from 'ant-design-vue'
 import { defineProps, ref } from 'vue'
 
 const props = defineProps<{
@@ -11,18 +10,18 @@ const props = defineProps<{
 const fileList = ref(props.testDataFileImport)
 const data = ref(props.testDataFileImport)
 
-const handleChange = (info: UploadChangeParam) => {
-    const status = info.file.status
-    if (status !== 'uploading') {
-        console.log('info.file', info.file)
-        console.log(', info.fileList', info.fileList)
-    }
-    if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`)
-    } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
-    }
-}
+// const handleChange = (info: UploadChangeParam) => {
+//     const status = info.file.status
+//     if (status !== 'uploading') {
+//         console.log('info.file', info.file)
+//         console.log(', info.fileList', info.fileList)
+//     }
+//     if (status === 'done') {
+//         message.success(`${info.file.name} file uploaded successfully.`)
+//     } else if (status === 'error') {
+//         message.error(`${info.file.name} file upload failed.`)
+//     }
+// }
 function handleDrop(e: DragEvent) {
     console.log(e)
 }

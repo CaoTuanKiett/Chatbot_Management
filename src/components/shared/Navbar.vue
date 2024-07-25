@@ -4,7 +4,7 @@ import ButtonRegisterChatbot from '@/components/common/ButtonRegisterChatbot.vue
 import { RoutePath } from '@/router'
 import { useAuthStore } from '@/stores/auth'
 import { Icon } from '@iconify/vue'
-import { Button, Dropdown, Menu, MenuItem } from 'ant-design-vue'
+import { Dropdown, Menu, MenuItem } from 'ant-design-vue'
 import { computed, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 

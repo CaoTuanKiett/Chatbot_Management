@@ -16,20 +16,20 @@ const props = defineProps<{
 
 const options1 = ref<SelectProps['options']>([
     {
-        value: '1',
+        value: 'Nhà Hàng',
         label: 'Nhà Hàng'
     },
     {
-        value: '2',
+        value: 'Khách Sạn',
         label: 'Khách Sạn'
     },
     {
-        value: '3',
+        value: 'Khu nghỉ dưỡng',
         label: 'Khu nghỉ dưỡng',
         disabled: true
     },
     {
-        value: '4',
+        value: 'Homestay',
         label: 'Homestay'
     }
 ])
@@ -63,7 +63,7 @@ const focus = () => {
 }
 
 const handleChange = (value: string) => {
-    // console.log(`selected ${value}`)
+    console.log(`selected ${value}`)
 }
 </script>
 

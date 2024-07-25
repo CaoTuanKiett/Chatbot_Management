@@ -169,7 +169,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
     console.info(':::Router -> Enter', to.path)
-    const existingPages = router.getRoutes().map((route) => route.path)
+    // const existingPages = router.getRoutes().map((route) => route.path)
 
     // if (!existingPages.includes(to.path)) {
     //     console.info(`:::Router -> '${to.path}' not found, redirect to 404 page`)

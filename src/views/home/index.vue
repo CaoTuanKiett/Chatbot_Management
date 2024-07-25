@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import Container from '@/components/Container.vue'
-import Banner from './Banner.vue'
-import Cta from './Cta.vue'
-import Features from './Features.vue'
+// import Container from '@/components/Container.vue'
+// import Banner from './Banner.vue'
+// import Cta from './Cta.vue'
+// import Features from './Features.vue'
+import Auto from './Auto.vue'
 import Hero from './Hero.vue'
 </script>
 
 <template>
-    <Container>
+    <div class="mt-24 w-screen pb-[900px] font-montserrat">
         <Hero />
-        <Features />
+        <Auto />
+        <!-- <Features />
         <Banner />
-        <Cta />
-    </Container>
+        <Cta /> -->
+    </div>
 </template>
 
 <style lang="less" scoped></style>

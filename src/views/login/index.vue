@@ -29,6 +29,8 @@ const { mutate, isPending } = useMutation({
 })
 
 const handleLoginFailed = (errInfo: any) => {
+    console.log('Failed:', errInfo)
+
     // * Error will be handled by the AsyncErrorBoundary}
 }
 </script>
@@ -61,7 +63,8 @@ const handleLoginFailed = (errInfo: any) => {
                     auto-complete="off"
                     class="rounded-3xl border-tk-primary-color p-2"
                 >
-                    <template #prefix> <Icon icon="ph:envelope-simple-bold" class="mx-2" /> </template
+                    <template #prefix>
+                        <Icon icon="ph:envelope-simple-bold" class="mx-2" /> </template
                 ></Input>
             </FormItem>
 

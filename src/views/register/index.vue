@@ -46,6 +46,8 @@ const { mutate, isPending } = useMutation({
 })
 
 const onFinishFailed = (errInfo: any) => {
+    console.log('Failed:', errInfo)
+
     // * Error will be handled by the AsyncErrorBoundary}
 }
 </script>
