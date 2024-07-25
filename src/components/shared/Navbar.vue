@@ -40,13 +40,13 @@ const auth = useAuthStore()
                 }`"
             >
                 <div class="flex w-full lg:w-auto items-center justify-between">
-                    <a href="/" class="flex items-center">
+                    <RouterLink to="/" class="flex items-center">
                         <img src="/images/logo-vaias.png" alt="logo-vaias" class="w-20 h-14" />
                         <div>
                             <span class="font-bold text-slate-800 text-2xl">VAIAS</span>
                             <span class="text-slate-500 text-xl">-Tourism</span>
                         </div>
-                    </a>
+                    </RouterLink>
                     <div class="block lg:hidden">
                         <button aria-label="Toggle Menu">
                             <title>Toggle Menu</title>
@@ -58,12 +58,12 @@ const auth = useAuthStore()
                     <nav class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
                         <ul class="flex flex-col items-center lg:flex-row lg:gap-3">
                             <li>
-                                <a
-                                    href="/#"
+                                <RouterLink
+                                    to="/#"
                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
                                 >
                                     <span>Trang chủ</span>
-                                </a>
+                                </RouterLink>
                             </li>
                             <li>
                                 <RouterLink

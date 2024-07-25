@@ -1,17 +1,42 @@
 <script lang="ts" setup>
+// import {formatDataConfig} from '@/utils/index'
+import ChatbotItem from '@/components/common/ChatbotItem.vue'
 import { AutoComplete, InputSearch } from 'ant-design-vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 interface Option {
     query: string
     category: string
     value: string
     count: number
 }
+const router = useRouter()
 const value = ref('')
 const dataSource = ref<Option[]>([])
+const dataChatbot = ref<any>([])
 // const onSelect = (value: string) => {
 //     console.log('onSelect', value)
 // }
+onMounted(() => {
+    getDataChatbot()
+    // console.log('dataChatbot', dataChatbot.value)
+})
+
+const getDataChatbot = () => {
+    const data = localStorage.getItem('formData')
+
+    // console.log('dataChatbot', dataChatbot)
+    if (data) {
+        try {
+            const parsedData = JSON.parse(data)
+            dataChatbot.value = parsedData
+        } catch (error) {
+            console.error('Error parsing JSON:', error)
+        }
+    } else {
+        console.log('No data found in localStorage')
+    }
+}
 
 const getRandomInt = (max: number, min = 0) => {
     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -32,12 +57,26 @@ const handleSearch = (val: string) => {
     dataSource.value = val ? searchResult(val) : []
 }
 
-const isChecked = ref(false)
+const isChecked = ref(true)
 
 const toggleCheckbox = () => {
     console.log('heheh')
 
     isChecked.value = !isChecked.value
+}
+
+const handleSetting = (item: any) => {
+    if (item) {
+        // console.log('handleSetting', item)
+        router.push({ path: `/chatbot/detail/${item.id}` })
+    }
+}
+
+const handleDelete = (item: any) => {
+    console.log('handleDelete', item)
+    const newData = dataChatbot.value.filter((chatbot: any) => chatbot.id !== item.id)
+    dataChatbot.value = newData
+    localStorage.setItem('formData', JSON.stringify(newData))
 }
 </script>
 
@@ -72,7 +111,7 @@ const toggleCheckbox = () => {
         <div>
             <h1>Quản lý chatbot:</h1>
             <div>
-                <div class="chatbot border-2 border-black rounded-lg p-4 flex w-[900px]">
+                <!-- <div class="chatbot border-2 border-black rounded-lg p-4 flex w-[900px]">
                     <img
                         src="/images/itemhotel.png"
                         alt="itemhotel"
@@ -144,7 +183,17 @@ const toggleCheckbox = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+                <ChatbotItem
+                    v-for="(item, index) in dataChatbot"
+                    :key="index"
+                    :item="item"
+                    :isChecked="isChecked"
+                    :toggleCheckbox="toggleCheckbox"
+                    :handleSetting="handleSetting"
+                    :handleDelete="handleDelete"
+                />
             </div>
         </div>
     </div>

@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineProps, ref } from 'vue'
+
+const props = defineProps<{
+    testDataQA: any[]
+}>()
 
 interface Input {
     question: string
@@ -7,7 +11,8 @@ interface Input {
 }
 
 const inputs = ref<Input[]>([{ question: '', content: '' }])
-const dataQA = ref<any[]>([])
+const dataQA = ref<any[]>(props.testDataQA)
+// const dataQA = ref<any[]>([])
 
 const addInput = () => {
     inputs.value.push({ question: '', content: '' })

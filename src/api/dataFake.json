@@ -6,10 +6,10 @@
             "address": "Address 1",
             "phone": "123456789",
             "email": "abc@example.com",
-            "website": "www.example.com"
+            "website": "www.example.com",
             "service": "Service 1",
             "description": "Description 1",
-            "nameChatbot": "Chatbot 1",
+            "nameChatbot": "Chatbot 1"
         },
         "chatbot": {
             "name": "Chatbot 1",

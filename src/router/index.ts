@@ -19,6 +19,7 @@ export enum RoutePath {
     // Chatbot = RoutePrefix.Chatbot + '/chatbot',
     ChatbotRegister = RoutePrefix.Chatbot + '/register',
     ChatbotManagement = RoutePrefix.Chatbot + '/management',
+    ChatbotDetail = RoutePrefix.Chatbot + '/detail/:id',
 
     AdminTab1Sub1 = RoutePrefix.Admin + '/tab1/sub1',
     AdminTab1Sub2 = RoutePrefix.Admin + '/tab1/sub2',
@@ -152,6 +153,14 @@ const router = createRouter({
                     meta: {
                         title: 'Quản lý Chatbot'
                     }
+                },
+                {
+                    path: RoutePath.ChatbotDetail,
+                    name: 'ChatbotDetail',
+                    component: () => import('../views/chatbot/RegisterChatbot.vue'),
+                    meta: {
+                        title: 'Chi tiết Chatbot'
+                    }
                 }
             ]
         }
@@ -159,11 +168,16 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-    // redirect to login page if not logged in and trying to access a restricted page
     console.info(':::Router -> Enter', to.path)
     const existingPages = router.getRoutes().map((route) => route.path)
 
-    if (!existingPages.includes(to.path)) {
+    // if (!existingPages.includes(to.path)) {
+    //     console.info(`:::Router -> '${to.path}' not found, redirect to 404 page`)
+    //     return RoutePath.NotFound
+    // }
+
+    // Kiểm tra xem route có hợp lệ không
+    if (!to.matched.length) {
         console.info(`:::Router -> '${to.path}' not found, redirect to 404 page`)
         return RoutePath.NotFound
     }

@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import type { SelectProps } from 'ant-design-vue'
 import { Select } from 'ant-design-vue'
-import { ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
+
+const props = defineProps<{
+    testDataInfor: {
+        nameCompany: string
+        address: string
+        email: string
+        phone: string
+        nameChatbot: string
+        service: string
+    }
+}>()
 
 const options1 = ref<SelectProps['options']>([
     {
@@ -24,26 +35,35 @@ const options1 = ref<SelectProps['options']>([
 ])
 
 const dataInfo = ref({
-    nameCompany: '',
-    address: '',
-    email: '',
-    phone: '',
-    nameChatbot: '',
-    service: 'Nhà Hàng'
+    nameCompany: props.testDataInfor.nameCompany,
+    address: props.testDataInfor.address,
+    email: props.testDataInfor.email,
+    phone: props.testDataInfor.phone,
+    nameChatbot: props.testDataInfor.nameChatbot,
+    service: props.testDataInfor.service
 })
+
+watch(
+    () => props.testDataInfor,
+    (newVal) => {
+        dataInfo.value = { ...newVal }
+    },
+    { immediate: true }
+)
 
 const fetchData = () => {
     console.log('Fetching data Information...')
+    Object.assign(props.testDataInfor, dataInfo.value)
 }
 
 defineExpose({ fetchData, dataInfo })
 
 const focus = () => {
-    console.log('focus')
+    // console.log('focus')
 }
 
 const handleChange = (value: string) => {
-    console.log(`selected ${value}`)
+    // console.log(`selected ${value}`)
 }
 </script>
 

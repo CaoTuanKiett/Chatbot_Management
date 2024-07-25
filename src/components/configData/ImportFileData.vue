@@ -2,9 +2,15 @@
 import { InboxOutlined } from '@ant-design/icons-vue'
 import type { UploadChangeParam } from 'ant-design-vue'
 import { message, UploadDragger } from 'ant-design-vue'
-import { ref } from 'vue'
-const fileList = ref([])
-const data = ref([])
+import { defineProps, ref } from 'vue'
+
+const props = defineProps<{
+    testDataFileImport: any[]
+}>()
+
+const fileList = ref(props.testDataFileImport)
+const data = ref(props.testDataFileImport)
+
 const handleChange = (info: UploadChangeParam) => {
     const status = info.file.status
     if (status !== 'uploading') {
@@ -20,6 +26,10 @@ const handleChange = (info: UploadChangeParam) => {
 function handleDrop(e: DragEvent) {
     console.log(e)
 }
+
+console.log('props.testDataFileImport', props.testDataFileImport)
+console.log('data', data)
+console.log('fileList', fileList)
 
 defineExpose({ fileList })
 </script>

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { Modal } from 'ant-design-vue'
-import { ref } from 'vue'
+import { defineProps, ref } from 'vue'
+
+const props = defineProps<{
+    testDataLink: any[]
+}>()
 
 const open = ref<boolean>(false)
 
@@ -11,7 +15,8 @@ interface Input {
 const inputs = ref<Input[]>([{ content: '' }])
 
 const inputUrl = ref('')
-const dataLink = ref<string[]>([])
+const dataLink = ref<string[]>(props.testDataLink)
+// const dataLink = ref<string[]>([])
 
 const showModal = (item: string) => {
     open.value = true

@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineProps, ref } from 'vue'
+
+const props = defineProps<{
+    testDataFile: any[]
+}>()
 
 interface Input {
     content: string
 }
 
 const inputs = ref<Input[]>([{ content: '' }])
-const dataFile = ref<string[]>([])
+const dataFile = ref(props.testDataFile)
+// const dataFile = ref<string[]>([])
 
 const addInput = () => {
     inputs.value.push({ content: '' })

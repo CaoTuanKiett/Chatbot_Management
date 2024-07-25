@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { RadioGroup } from 'ant-design-vue'
-import { ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
+
+const props = defineProps<{
+    testDataIntegration: {
+        integrationMethod: string
+        accountName: string
+        password: string
+        token: string
+        verificationCode: string
+    }
+}>()
 
 const dataIntegration = ref({
-    integrationMethod: '',
-    accountName: '',
-    password: '',
-    token: '',
-    verificationCode: ''
+    integrationMethod: props.testDataIntegration.integrationMethod,
+    accountName: props.testDataIntegration.accountName,
+    password: props.testDataIntegration.password,
+    token: props.testDataIntegration.token,
+    verificationCode: props.testDataIntegration.verificationCode
 })
 
 const plainOptions = [
@@ -24,6 +34,14 @@ const plainOptions = [
         value: 'booking'
     }
 ]
+
+watch(
+    () => props.testDataIntegration,
+    (newVal) => {
+        dataIntegration.value = { ...newVal }
+    },
+    { immediate: true }
+)
 
 const fetchData = () => {
     console.log('Fetching data Integration...')

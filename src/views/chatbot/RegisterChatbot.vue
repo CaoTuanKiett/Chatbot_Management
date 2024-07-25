@@ -1,26 +1,49 @@
 <script setup lang="ts">
 import { TabPane, Tabs } from 'ant-design-vue'
-import { ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 
 import ConfigData from '@/components/chatbot/ConfigData.vue'
 import Information from '@/components/chatbot/Information.vue'
 import Integration from '@/components/chatbot/Integration.vue'
 import ChatExample from '@/components/common/ChatExample.vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const inputValue = ref('')
+const route = useRoute()
+const router = useRouter()
+const chatbotId = route.params.id
+
+// const inputValue = ref('')
 const activeKey = ref('1')
 // const informationRef = ref(null)
 const dataRegister = ref({
-    dataInfo: {},
-    dataIntegration: {},
-    dataConfigFormat: {}
+    dataInfo: {
+        nameCompany: '',
+        address: '',
+        email: '',
+        phone: '',
+        nameChatbot: '',
+        service: ''
+    },
+    dataIntegration: {
+        integrationMethod: '',
+        accountName: '',
+        password: '',
+        token: '',
+        verificationCode: ''
+    },
+    dataConfig: {
+        dataFile: [],
+        dataImportFile: [],
+        dataLink: [],
+        dataQA: []
+    }
 })
 
 type DataConfigFormat = {
-    dataFile: any[] // Replace 'any' with the specific type if known
-    dataImportFile: any[] // Replace 'any' with the specific type if known
-    dataLink: any[] // Replace 'any' with the specific type if known
-    dataQA: any[] // Replace 'any' with the specific type if known
+    dataFile: any[]
+    dataImportFile: any[]
+    dataLink: any[]
+    dataQA: any[]
 }
 
 const handleNextTab = () => {
@@ -63,20 +86,61 @@ watch(activeKey, (newValue, oldValue) => {
     //     dataRegister.value = {
     //         dataInfo: informationRef.value?.dataInfo,
     //         dataIntegration: integrationRef.value?.dataIntegration,
-    //         dataConfigFormat: configDataRef.value?.dataConfigFormat
+    //         dataConfig: configDataRef.value?.dataConfig
     //     }
 
     //     // console.log('dataRegister', dataRegister.value)
     // }
 })
 
+const resetData = () => {
+    if (informationRef.value && informationRef.value.dataInfo) {
+        informationRef.value.dataInfo.nameCompany = ''
+        informationRef.value.dataInfo.address = ''
+        informationRef.value.dataInfo.email = ''
+        informationRef.value.dataInfo.phone = ''
+        informationRef.value.dataInfo.nameChatbot = ''
+        informationRef.value.dataInfo.service = ''
+    }
+
+    if (integrationRef.value && integrationRef.value.dataIntegration) {
+        integrationRef.value.dataIntegration.integrationMethod = ''
+        integrationRef.value.dataIntegration.accountName = ''
+        integrationRef.value.dataIntegration.password = ''
+        integrationRef.value.dataIntegration.token = ''
+        integrationRef.value.dataIntegration.verificationCode = ''
+    }
+
+    console.log('configDataRef', configDataRef.value)
+
+    if (configDataRef.value && configDataRef.value.dataConfig) {
+        configDataRef.value.activeKey = '1'
+
+        if (Array.isArray(configDataRef.value.dataConfig.dataFile)) {
+            configDataRef.value.dataConfig.dataFile.length = 0
+        }
+
+        if (Array.isArray(configDataRef.value.dataConfig.dataImportFile)) {
+            configDataRef.value.dataConfig.dataImportFile.length = 0
+        }
+
+        if (Array.isArray(configDataRef.value.dataConfig.dataLink)) {
+            configDataRef.value.dataConfig.dataLink.length = 0
+        }
+
+        if (Array.isArray(configDataRef.value.dataConfig.dataQA)) {
+            configDataRef.value.dataConfig.dataQA.length = 0
+        }
+    }
+}
+
 const handleFinish = () => {
     const dataCheck: DataConfigFormat = {
-        dataFile: configDataRef.value?.dataConfigFormat?.dataFile
-            ? Array.from(configDataRef.value?.dataConfigFormat?.dataFile)
+        dataFile: configDataRef.value?.dataConfig?.dataFile
+            ? Array.from(configDataRef.value?.dataConfig?.dataFile)
             : [],
-        dataImportFile: configDataRef.value?.dataConfigFormat?.dataImportFile
-            ? Array.from(configDataRef.value?.dataConfigFormat?.dataImportFile).map((item: any) => {
+        dataImportFile: configDataRef.value?.dataConfig?.dataImportFile
+            ? Array.from(configDataRef.value?.dataConfig?.dataImportFile).map((item: any) => {
                   const newItem = Object.assign({}, item)
                   if (newItem.originFileObj && typeof newItem.originFileObj === 'object') {
                       newItem.originFileObj = { ...newItem.originFileObj }
@@ -85,17 +149,18 @@ const handleFinish = () => {
                   return newItem
               })
             : [],
-        dataLink: configDataRef.value?.dataConfigFormat?.dataLink
-            ? Array.from(configDataRef.value?.dataConfigFormat?.dataLink)
+        dataLink: configDataRef.value?.dataConfig?.dataLink
+            ? Array.from(configDataRef.value?.dataConfig?.dataLink)
             : [],
-        dataQA: configDataRef.value?.dataConfigFormat?.dataQA
-            ? Array.from(configDataRef.value?.dataConfigFormat?.dataQA).map((item: any) => {
+        dataQA: configDataRef.value?.dataConfig?.dataQA
+            ? Array.from(configDataRef.value?.dataConfig?.dataQA).map((item: any) => {
                   return Object.assign({}, item)
               })
             : []
     }
 
     const data = {
+        id: Date.now(),
         dataInfo: {
             nameCompany: informationRef.value?.dataInfo?.nameCompany,
             address: informationRef.value?.dataInfo?.address,
@@ -111,15 +176,121 @@ const handleFinish = () => {
             token: integrationRef.value?.dataIntegration?.token,
             verificationCode: integrationRef.value?.dataIntegration?.verificationCode
         },
-        dataConfigFormat: {
+        dataConfig: {
             dataFile: dataCheck.dataFile,
             dataImportFile: dataCheck.dataImportFile,
             dataLink: dataCheck.dataLink,
             dataQA: dataCheck.dataQA
         }
     }
-    console.log('Finish', data)
+
+    let existingData = localStorage.getItem('formData')
+    let formDataArray: any[] = []
+
+    if (chatbotId) {
+        if (existingData) {
+            try {
+                formDataArray = JSON.parse(existingData)
+                if (!Array.isArray(formDataArray)) {
+                    formDataArray = []
+                }
+            } catch (e) {
+                console.error('Error parsing formData from localStorage:', e)
+                formDataArray = []
+            }
+        }
+        const index = formDataArray.findIndex((item) => item.id == chatbotId)
+        if (index !== -1) {
+            formDataArray[index] = data
+        }
+    } else {
+        if (existingData) {
+            try {
+                formDataArray = JSON.parse(existingData)
+                if (!Array.isArray(formDataArray)) {
+                    formDataArray = []
+                }
+            } catch (e) {
+                console.error('Error parsing formData from localStorage:', e)
+                formDataArray = []
+            }
+        }
+        formDataArray.push(data)
+    }
+
+    localStorage.setItem('formData', JSON.stringify(formDataArray))
+    resetData()
+    activeKey.value = '1'
+
+    router.push({ name: 'ChatbotManagement' })
 }
+
+onMounted(() => {
+    console.log('chatbotId', chatbotId)
+
+    console.log('configDataRef.value', configDataRef)
+
+    nextTick(() => {
+        if (chatbotId) {
+            const data = localStorage.getItem('formData')
+            if (data) {
+                try {
+                    const parsedData = JSON.parse(data)
+                    const chatbot = parsedData.find((item: any) => item.id == chatbotId)
+                    // console.log('chatbot', chatbot)
+
+                    dataRegister.value = chatbot
+
+                    // console.log('informationRef.value', informationRef.value)
+
+                    // if (informationRef.value) {
+                    //     informationRef.value.dataInfo.nameCompany = chatbot.dataInfo.nameCompany
+                    //     informationRef.value.dataInfo.address = chatbot.dataInfo.address
+                    //     informationRef.value.dataInfo.email = chatbot.dataInfo.email
+                    //     informationRef.value.dataInfo.phone = chatbot.dataInfo.phone
+                    //     informationRef.value.dataInfo.nameChatbot = chatbot.dataInfo.nameChatbot
+                    //     informationRef.value.dataInfo.service = chatbot.dataInfo.service
+                    // }
+
+                    // if (integrationRef.value) {
+                    //     integrationRef.value.dataIntegration.integrationMethod =
+                    //         chatbot.dataIntegration.integrationMethod
+                    //     integrationRef.value.dataIntegration.accountName =
+                    //         chatbot.dataIntegration.accountName
+                    //     integrationRef.value.dataIntegration.password =
+                    //         chatbot.dataIntegration.password
+                    //     integrationRef.value.dataIntegration.token = chatbot.dataIntegration.token
+                    //     integrationRef.value.dataIntegration.verificationCode =
+                    //         chatbot.dataIntegration.verificationCode
+                    // }
+                    // // console.log('configDataRef.value ,put', configDataRef.value)
+
+                    // if (configDataRef.value) {
+                    //     console.log('chatbot.dataConfig.dataFile', chatbot.dataConfig.dataFile)
+
+                    //     configDataRef.value.dataConfig.dataFile = chatbot.dataConfig.dataFile
+                    //     configDataRef.value.dataConfig.dataImportFile =
+                    //         chatbot.dataConfig.dataImportFile
+                    //     configDataRef.value.dataConfig.dataLink = chatbot.dataConfig.dataLink
+                    //     configDataRef.value.dataConfig.dataQA = chatbot.dataConfig.dataQA
+                    // }
+
+                    // if (chatbot) {
+                    //     informationRef.value?.setDataInfo(chatbot.dataInfo)
+                    //     integrationRef.value?.setDataIntegration(chatbot.dataIntegration)
+                    //     configDataRef.value?.setDataConfig(chatbot.dataConfig)
+                    // }
+                } catch (error) {
+                    console.error('Error parsing JSON:', error)
+                }
+            } else {
+                console.log('No data found in localStorage')
+            }
+        } else {
+            resetData()
+        }
+    })
+})
 </script>
 
 <template>
@@ -127,13 +298,16 @@ const handleFinish = () => {
         <div class="max-w-screen-xl">
             <Tabs v-model:activeKey="activeKey" centered class="h-100">
                 <TabPane key="1" tab="Thông tin chung">
-                    <Information ref="informationRef" />
+                    <Information ref="informationRef" :testDataInfor="dataRegister.dataInfo" />
                 </TabPane>
                 <TabPane key="2" tab="Cấu hình" force-render>
-                    <Integration ref="integrationRef" />
+                    <Integration
+                        ref="integrationRef"
+                        :testDataIntegration="dataRegister.dataIntegration"
+                    />
                 </TabPane>
                 <TabPane key="3" tab="Dữ liệu">
-                    <ConfigData ref="configDataRef" />
+                    <ConfigData ref="configDataRef" :testDataConfig="dataRegister.dataConfig" />
                 </TabPane>
                 <TabPane key="4" tab="Thử nghiệm"><ChatExample /></TabPane>
             </Tabs>
@@ -174,7 +348,9 @@ const handleFinish = () => {
 <style>
 .register-chatbot {
     padding: 56px 0;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+        rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
         rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
     border-radius: 8px;
 }

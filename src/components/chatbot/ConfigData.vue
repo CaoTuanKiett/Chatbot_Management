@@ -3,7 +3,7 @@ import FileData from '@/components/configData/FileData.vue'
 import ImportFileData from '@/components/configData/ImportFileData.vue'
 import QAData from '@/components/configData/QAData.vue'
 import { TabPane, Tabs } from 'ant-design-vue'
-import { onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref } from 'vue'
 import LinkData from '../configData/LinkData.vue'
 const activeKey = ref('1')
 
@@ -11,6 +11,17 @@ const fileDataRef = ref<InstanceType<typeof FileData> | null>(null)
 const importFileDataRef = ref<InstanceType<typeof ImportFileData> | null>(null)
 const qaDataRef = ref<InstanceType<typeof QAData> | null>(null)
 const linkDataRef = ref<InstanceType<typeof LinkData> | null>(null)
+
+const props = defineProps<{
+    testDataConfig: {
+        dataFile: any[]
+        dataImportFile: any[]
+        dataLink: any[]
+        dataQA: any[]
+    }
+}>()
+
+console.log('props.testDataConfig', props.testDataConfig)
 
 type DataConfigFormat = {
     dataFile: any[] // Replace 'any' with the specific type if known
@@ -20,10 +31,10 @@ type DataConfigFormat = {
 }
 
 const dataConfigFormat = ref<DataConfigFormat>({
-    dataFile: [],
-    dataImportFile: [],
-    dataLink: [],
-    dataQA: []
+    dataFile: props.testDataConfig.dataFile,
+    dataImportFile: props.testDataConfig.dataImportFile,
+    dataLink: props.testDataConfig.dataLink,
+    dataQA: props.testDataConfig.dataQA
 })
 
 const dataConfig = ref({
@@ -35,6 +46,7 @@ const dataConfig = ref({
 
 onMounted(() => {
     updateDataConfig()
+    console.log('dataConfig', dataConfig.value)
 })
 
 const updateDataConfig = () => {
@@ -48,54 +60,65 @@ const updateDataConfig = () => {
 
 const fetchData = () => {
     updateDataConfig()
-    const dataCheck: DataConfigFormat = {
-        dataFile: dataConfig.value?.dataFile ? Array.from(dataConfig.value.dataFile) : [],
-        dataImportFile: dataConfig.value.dataImportFile
-            ? Array.from(dataConfig.value.dataImportFile).map((item: any) => {
-                  const newItem = Object.assign({}, item)
-                  if (newItem.originFileObj && typeof newItem.originFileObj === 'object') {
-                      newItem.originFileObj = { ...newItem.originFileObj }
-                  }
+    // const dataCheck: DataConfigFormat = {
+    //     dataFile: dataConfig.value?.dataFile ? Array.from(dataConfig.value.dataFile) : [],
+    //     dataImportFile: dataConfig.value.dataImportFile
+    //         ? Array.from(dataConfig.value.dataImportFile).map((item: any) => {
+    //               const newItem = Object.assign({}, item)
+    //               if (newItem.originFileObj && typeof newItem.originFileObj === 'object') {
+    //                   newItem.originFileObj = { ...newItem.originFileObj }
+    //               }
 
-                  return newItem
-              })
-            : [],
-        dataLink: dataConfig.value?.dataLink ? Array.from(dataConfig.value.dataLink) : [],
-        dataQA: dataConfig.value?.dataQA
-            ? Array.from(dataConfig.value.dataQA).map((item: any) => {
-                  return Object.assign({}, item)
-              })
-            : []
-    }
+    //               return newItem
+    //           })
+    //         : [],
+    //     dataLink: dataConfig.value?.dataLink ? Array.from(dataConfig.value.dataLink) : [],
+    //     dataQA: dataConfig.value?.dataQA
+    //         ? Array.from(dataConfig.value.dataQA).map((item: any) => {
+    //               return Object.assign({}, item)
+    //           })
+    //         : []
+    // }
 
-    dataConfigFormat.value = {
-        dataFile: dataCheck.dataFile,
-        dataImportFile: dataCheck.dataImportFile,
-        dataLink: dataCheck.dataLink,
-        dataQA: dataCheck.dataQA
-    }
-    console.log('Fetching data ConfigData...')
-    console.log('dataCheck', dataCheck)
-    console.log('dataConfig.value', dataConfigFormat.value)
+    // dataConfigFormat.value = {
+    //     dataFile: dataCheck.dataFile,
+    //     dataImportFile: dataCheck.dataImportFile,
+    //     dataLink: dataCheck.dataLink,
+    //     dataQA: dataCheck.dataQA
+    // }
+    // console.log('Fetching data ConfigData...')
+    // console.log('dataCheck', dataCheck)
+    // console.log('dataConfig.value', dataConfigFormat.value)
 }
 
-defineExpose({ fetchData, dataConfigFormat })
+defineExpose({
+    fetchData,
+    dataConfig,
+    activeKey,
+    fileDataRef,
+    importFileDataRef,
+    qaDataRef,
+    linkDataRef
+})
 </script>
 
 <template>
     <div class="config-data w-9/12 m-auto">
         <Tabs v-model:activeKey="activeKey" class="flex flex-row">
             <TabPane key="1" tab="Văn bản" class="w-96">
-                <FileData ref="fileDataRef" />
+                <FileData ref="fileDataRef" :testDataFile="dataConfigFormat.dataFile" />
             </TabPane>
             <TabPane key="2" tab="File" class="w-96">
-                <ImportFileData ref="importFileDataRef" />
+                <ImportFileData
+                    ref="importFileDataRef"
+                    :testDataFileImport="dataConfigFormat.dataImportFile"
+                />
             </TabPane>
             <TabPane key="3" tab="Câu hỏi" class="w-96">
-                <QAData ref="qaDataRef" />
+                <QAData ref="qaDataRef" :testDataQA="dataConfigFormat.dataQA" />
             </TabPane>
             <TabPane key="4" tab="Link" class="w-96">
-                <LinkData ref="linkDataRef" />
+                <LinkData ref="linkDataRef" :testDataLink="dataConfigFormat.dataLink" />
             </TabPane>
         </Tabs>
     </div>
