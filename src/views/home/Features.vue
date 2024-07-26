@@ -9,6 +9,8 @@
                 v-for="feature in features"
                 :key="feature.title"
                 class="card bg-white w-[360px] h-[300px] rounded-xl flex justify-center items-center"
+                data-aos="zoom-in-down"
+                data-aos-duration="2000"
             >
                 <div class="px-8 py-12">
                     <img :src="feature.icon" :alt="feature.title" class="mb-4" />
@@ -57,7 +59,7 @@ const features = ref([
 ])
 </script>
 
-<style>
+<style scoped>
 /* Add your styles here */
 
 .card {

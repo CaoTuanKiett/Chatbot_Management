@@ -103,7 +103,7 @@ const partnersRow2 = ref<Partner[]>([
                     <div
                         v-for="partner in partnersRow1"
                         :key="partner.alt"
-                        class="bg-tk-color h-[100px] w-48 flex justify-center items-center rounded-full"
+                        class="bg-tk-color h-[100px] w-48 flex justify-center items-center rounded-full shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-900 duration-300"
                     >
                         <img
                             :src="partner.src"
@@ -127,7 +127,7 @@ const partnersRow2 = ref<Partner[]>([
                     <div
                         v-for="partner in partnersRow2"
                         :key="partner.alt"
-                        class="bg-tk-color h-[100px] w-48 flex justify-center items-center rounded-full"
+                        class="bg-tk-color h-[100px] w-48 flex justify-center items-center rounded-full shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-900 duration-300"
                     >
                         <img
                             :src="partner.src"

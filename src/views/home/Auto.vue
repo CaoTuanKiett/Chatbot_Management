@@ -1,12 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="auto relative h-[400px]">
+    <div class="auto relative h-[460px]">
         <div class="z-[1] relative w-full h-full flex flex-col justify-center items-center pb-5">
             <h2 class="text-[26px] font-semibold text-white tracking-wider mb-6 font-montserrat">
                 Vietnam AI Automation Services - Tourism
             </h2>
-            <p class="text-center text-lg tracking-wider text-white">
+            <p
+                class="text-center text-lg tracking-wider text-white leading-8"
+                data-aos="zoom-in-up"
+                data-aos-duration="2000"
+            >
                 Nền tảng tự động hóa tiên tiến dành cho ngành Dịch vụ lưu trú du lịch. <br />
                 Với trí tuệ nhân tạo để cung cấp dịch vụ tư vấn, đặt phòng và hỗ trợ khách hàng
                 24/7,
