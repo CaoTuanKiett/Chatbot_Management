@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import Footer from '@/components/shared/Footer.vue'
+import Footer from '@/components/shared/Footer.vue'
 import Navbar from '@/components/shared/Navbar.vue'
 import { ref } from 'vue'
 
@@ -17,7 +17,7 @@ setTimeout(() => {
         <div class="default-component">
             <slot />
         </div>
-        <!-- <Footer /> -->
+        <Footer />
     </div>
 </template>
 

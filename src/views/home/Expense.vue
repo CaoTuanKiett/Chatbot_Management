@@ -84,7 +84,7 @@ const plans = ref([
                 </ul>
                 <RouterLink
                     :to="plan.link"
-                    class="button flex items-center bg-tk-color text-white text-lg font-semibold px-6 py-2 rounded-2xl shadow-tk-btn-2 absolute bottom-10"
+                    class="button-upgrade flex items-center bg-tk-color text-white text-lg font-semibold px-6 py-2 rounded-2xl shadow-tk-btn-2 absolute bottom-10"
                 >
                     {{ plan.buttonText }}
                     <img
@@ -107,7 +107,7 @@ const plans = ref([
         rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-.button {
+.button-upgrade {
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     /* border-radius: 9999px; */
@@ -124,20 +124,20 @@ const plans = ref([
     transition: all 0.3s ease-in-out;
 }
 
-.button:hover {
+.button-upgrade:hover {
     transform: scale(1.05);
     border-color: #fff9;
 }
 
-.button:hover .icon {
+.button-upgrade:hover .icon {
     transform: translate(4px);
 }
 
-.button:hover::before {
+.button-upgrade:hover::before {
     animation: shine 1.5s ease-out infinite;
 }
 
-.button::before {
+.button-upgrade::before {
     content: '';
     position: absolute;
     width: 100px;

@@ -67,7 +67,7 @@ const features = ref([
     position: relative;
     transform-style: preserve-3d;
     perspective: 1000px;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: ease-in-out 0.1s cubic-bezier(0.23, 1, 0.32, 1);
     box-shadow:
         rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
         rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
@@ -75,7 +75,7 @@ const features = ref([
 }
 
 .card:hover {
-    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+    transform: rotateY(10deg) rotateX(10deg) scale(1.09);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -87,7 +87,7 @@ const features = ref([
     width: 100%;
     height: 100%;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.06));
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
     z-index: 1;
 }
 
@@ -103,7 +103,7 @@ const features = ref([
     width: 100%;
     height: 100%;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.07));
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
     z-index: 1;
 }
 

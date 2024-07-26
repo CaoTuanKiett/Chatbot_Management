@@ -48,7 +48,7 @@ const router = createRouter({
                     name: 'home',
                     component: () => import('../views/home/index.vue'),
                     meta: {
-                        layout: 'default'
+                        layout: 'home-page'
                     }
                 },
                 {
