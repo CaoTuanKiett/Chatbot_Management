@@ -2,18 +2,26 @@
 // import Container from '@/components/Container.vue'
 // import Banner from './Banner.vue'
 // import Cta from './Cta.vue'
-// import Features from './Features.vue'
 import Auto from './Auto.vue'
+import Expense from './Expense.vue'
+import Features from './Features.vue'
 import Hero from './Hero.vue'
+import Partner from './Partner.vue'
+import Why from './Why.vue'
+import Work from './Work.vue'
 </script>
 
 <template>
-    <div class="mt-24 w-screen pb-[900px] font-montserrat">
+    <div class="mt-24 w-full font-montserrat">
         <Hero />
         <Auto />
-        <!-- <Features />
-        <Banner />
-        <Cta /> -->
+        <Partner />
+        <Features />
+        <Work />
+        <Why />
+        <Expense />
+        <!-- <Banner /> -->
+        <!-- <Cta /> -->
     </div>
 </template>
 

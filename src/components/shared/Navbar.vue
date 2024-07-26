@@ -142,10 +142,6 @@ const auth = useAuthStore()
                                             </MenuItem>
                                         </Menu>
                                     </template>
-                                    <!-- <Button>
-                                        {{ auth.user?.email }}
-                                        <Icon icon="akar-icons:chevron-down" />
-                                    </Button> -->
                                 </Dropdown>
                             </div>
                         </div>
@@ -158,8 +154,6 @@ const auth = useAuthStore()
 
 <style lang="less" scoped>
 .activeScroll {
-    // background-color: rgba(255, 255, 255, 0.9);
-    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     margin: 4px 0 !important;
 }
 

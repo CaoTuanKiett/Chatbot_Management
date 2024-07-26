@@ -1,8 +1,11 @@
 import './assets/styles/index.less'
 
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+import Vue3Marquee from 'vue3-marquee'
 
 import App from './App.vue'
 import Curtain from './components/Curtain.vue'
@@ -20,6 +23,8 @@ async function startApp() {
     app.use(VueQueryPlugin)
     app.use(i18n)
     app.use(router)
+    app.use(Vue3Marquee)
+    // app.use(AOS)
 
     try {
         initializingApp.mount('#app')
@@ -36,4 +41,5 @@ async function startApp() {
     }
 
     app.mount('#app')
+    AOS.init()
 }

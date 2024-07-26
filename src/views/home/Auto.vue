@@ -1,10 +1,9 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
     <div class="auto relative h-[400px]">
         <div class="z-[1] relative w-full h-full flex flex-col justify-center items-center pb-5">
-            <h2 class="text-3xl font-semibold text-white tracking-wider mb-4 font-montserrat">
+            <h2 class="text-[26px] font-semibold text-white tracking-wider mb-6 font-montserrat">
                 Vietnam AI Automation Services - Tourism
             </h2>
             <p class="text-center text-lg tracking-wider text-white">

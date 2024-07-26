@@ -11,7 +11,8 @@ export default {
                 'tk-btn-color-primary': '#373977',
                 'tk-active': 'rgb(193 130 38)',
                 'tk-inactive': 'rgb(183 183 183)',
-                'tk-hover': '#5a690d'
+                'tk-hover': '#5a690d',
+                'tk-color': '#0879A6'
             },
             boxShadow: {
                 'tk-btn': 'rgba(0, 0, 0, 0.35) 0px 5px 15px;',

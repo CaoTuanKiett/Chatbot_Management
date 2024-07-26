@@ -1,67 +1,111 @@
 <template>
-    <div class="mt-16 md:mt-0">
-        <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-            {{ $t('home.features.title') }}
+    <div class="bg-tk-color w-full h-[900px] flex flex-col items-center pt-16">
+        <h2 class="text-white font-semibold text-[26px] pb-2 tracking-wider uppercase">
+            Tính Năng
         </h2>
-        <p class="text-lg mt-4 text-slate-600">
-            {{ $t('home.features.secondary') }}
-        </p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
-        <div v-for="item in features" :key="item.title" class="flex gap-4 items-start">
-            <div class="mt-1 bg-vue rounded-full p-2 w-8 h-8 shrink-0">
-                <Icon class="text-white" :icon="item.icon" />
-            </div>
-            <div>
-                <h3 class="font-semibold text-lg">{{ item.title }}</h3>
-                <p class="text-slate-500 mt-2 leading-relaxed">{{ item.description }}</p>
+        <span class="border-b-[4px] border-white w-16 h-1"></span>
+        <div class="flex flex-wrap justify-center items-center gap-7 mt-10 px-9">
+            <div
+                v-for="feature in features"
+                :key="feature.title"
+                class="card bg-white w-[360px] h-[300px] rounded-xl flex justify-center items-center"
+            >
+                <div class="px-8 py-12">
+                    <img :src="feature.icon" :alt="feature.title" class="mb-4" />
+                    <h3 class="text-tk-color text-2xl font-semibold pb-5">
+                        {{ feature.title }}
+                    </h3>
+                    <p class="text-tk-color">{{ feature.description }}</p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
-import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
 
-const { t } = useI18n()
-
-const features = reactive([
+const features = ref([
     {
-        title: t('home.features.feature1.title'),
-        description: t('home.features.feature1.description'),
-        icon: 'ph:asterisk-bold'
+        icon: '/icons/oclock.svg',
+        title: 'Chatbot AI tự động 24/7',
+        description: 'Cung cấp dịch vụ tư vấn, hỗ trợ đặt phòng và chăm sóc khách hàng.'
     },
     {
-        title: t('home.features.feature2.title'),
-        description: t('home.features.feature2.description'),
-        icon: 'ph:star-four'
+        icon: '/icons/flash.svg',
+        title: 'Tích hợp đa kênh',
+        description:
+            'Dễ dàng kết nối với các nền tảng như Messenger, Booking.com và tích hợp trên các API khác.'
     },
     {
-        title: t('home.features.feature3.title'),
-        description: t('home.features.feature3.description'),
-        icon: 'ph:moon'
+        icon: '/icons/flash.svg',
+        title: 'Tối ưu hóa chi phí nhân sự',
+        description: 'Giảm bớt công việc thủ công và tăng hiệu suất làm việc của nhân viên.'
     },
     {
-        title: t('home.features.feature4.title'),
-        description: t('home.features.feature4.description'),
-        icon: 'ph:sparkle'
+        icon: '/icons/plane.svg',
+        title: 'Hạ tầng đám mây mạnh mẽ',
+        description:
+            'Sử dụng Google Cloud và Amazon Web Services để đảm bảo hệ thống luôn ổn định và dễ dàng mở rộng.'
     },
     {
-        title: t('home.features.feature5.title'),
-        description: t('home.features.feature5.description'),
-        icon: 'ph:shooting-star'
-    },
-    {
-        title: t('home.features.feature6.title'),
-        description: t('home.features.feature6.description'),
-        icon: 'ph:heart'
+        icon: '/icons/delivery.svg',
+        title: 'Dễ dàng tùy chỉnh và mở rộng',
+        description:
+            'Cho phép doanh nghiệp thêm dữ liệu, điều chỉnh chatbot và tùy biến giao diện theo nhu cầu riêng.'
     }
 ])
 </script>
 
 <style>
 /* Add your styles here */
+
+.card {
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow:
+        rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    /* cursor: pointer; */
+}
+
+.card:hover {
+    transform: rotateY(10deg) rotateX(10deg) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.06));
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+}
+
+.card:hover:before {
+    transform: translateX(-100%);
+}
+
+.card:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.07));
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+}
+
+.card:hover:after {
+    transform: translateX(100%);
+}
 </style>

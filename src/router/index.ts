@@ -1,4 +1,6 @@
 import { useAuthStore } from '@/stores/auth'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { createRouter, createWebHistory } from 'vue-router'
 
 export enum RoutePrefix {
@@ -167,8 +169,10 @@ const router = createRouter({
     ]
 })
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, next) => {
     console.info(':::Router -> Enter', to.path)
+    AOS.init() // Initialize AOS
+
     // const existingPages = router.getRoutes().map((route) => route.path)
 
     // if (!existingPages.includes(to.path)) {
@@ -190,6 +194,7 @@ router.beforeEach(async (to) => {
         authStore.returnUrl = to.fullPath
         return RoutePath.Login
     }
+    // next()
 })
 
 export default router

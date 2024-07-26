@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Footer from '@/components/shared/Footer.vue'
 import Navbar from '@/components/shared/Navbar.vue'
 import { ref } from 'vue'
 
@@ -11,9 +12,12 @@ setTimeout(() => {
 
 <template>
     <Curtain :show="showCurtain" />
-    <Navbar />
-    <div class="default-component">
-        <slot />
+    <div class="flex flex-col">
+        <Navbar />
+        <div class="default-component">
+            <slot />
+        </div>
+        <Footer />
     </div>
 </template>
 
