@@ -73,27 +73,30 @@ const plans = ref([
             <div
                 v-for="plan in plans"
                 :key="plan.name"
-                class="item-expense bg-[#D0ECF8] flex flex-col items-center p-9 rounded-xl w-[270px] h-[460px] relative cursor-pointer hover:border-slate-700 hover:bg-slate-100"
                 data-aos="zoom-in-up"
                 data-aos-duration="2000"
             >
-                <p class="font-semibold text-[22px] mb-3">{{ plan.name }}</p>
-                <p class="text-3xl font-bold text-tk-color mb-7">{{ plan.price }}</p>
-                <ul class="list-disc list-inside w-56 tracking-wide mb-9">
-                    <li v-for="feature in plan.features" :key="feature">{{ feature }}</li>
-                </ul>
-                <RouterLink
-                    :to="plan.link"
-                    class="button-upgrade flex items-center bg-tk-color text-white text-lg font-semibold px-6 py-2 rounded-2xl shadow-tk-btn-2 absolute bottom-10"
+                <div
+                    class="item-expense bg-[#D0ECF8] flex flex-col items-center p-9 rounded-xl w-[276px] h-[460px] relative cursor-pointer hover:border-2 hover:bg-slate-100 shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 duration-300"
                 >
-                    {{ plan.buttonText }}
-                    <img
-                        v-if="plan.icon"
-                        :src="plan.icon"
-                        alt="premium"
-                        class="icon w-7 ml-2 mb-1"
-                    />
-                </RouterLink>
+                    <p class="font-semibold text-[22px] mb-3">{{ plan.name }}</p>
+                    <p class="text-3xl font-bold text-tk-color mb-7">{{ plan.price }}</p>
+                    <ul class="list-disc list-inside w-56 tracking-wide mb-9">
+                        <li v-for="feature in plan.features" :key="feature">{{ feature }}</li>
+                    </ul>
+                    <RouterLink
+                        :to="plan.link"
+                        class="button-upgrade flex items-center bg-tk-color text-white text-lg font-semibold px-6 py-2 rounded-2xl shadow-tk-btn-2 absolute bottom-10"
+                    >
+                        {{ plan.buttonText }}
+                        <img
+                            v-if="plan.icon"
+                            :src="plan.icon"
+                            alt="premium"
+                            class="icon w-7 ml-2 mb-1"
+                        />
+                    </RouterLink>
+                </div>
             </div>
         </div>
     </div>
@@ -118,11 +121,11 @@ const plans = ref([
     font-size: 15px;
 }
 
-.icon {
+/* .icon {
     width: 24px;
     height: 24px;
     transition: all 0.3s ease-in-out;
-}
+} */
 
 .button-upgrade:hover {
     transform: scale(1.05);

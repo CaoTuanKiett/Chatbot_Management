@@ -57,7 +57,7 @@ defineExpose({ dataLink })
             <button @click="showModal">Hiển thị trang</button> -->
 
             <div v-for="(input, index) in inputs" :key="index">
-                <div>
+                <div class="mb-5">
                     <p class="text-sm font-semibold mb-1">Link {{ index + 1 }}</p>
                     <div class="relative w-full">
                         <img
@@ -71,7 +71,7 @@ defineExpose({ dataLink })
                             v-model="input.content"
                             type="text"
                             placeholder="Nhập URL"
-                            class="border-[1px] border-black rounded p-2 text-sm w-full"
+                            class="border-[1px] border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm w-full"
                         />
                     </div>
                 </div>

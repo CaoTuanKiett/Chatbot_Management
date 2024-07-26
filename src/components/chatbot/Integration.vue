@@ -68,7 +68,7 @@ defineExpose({ fetchData, dataIntegration })
                     <input
                         v-model="dataIntegration.accountName"
                         type="text"
-                        class="border-2 w-96 border-black rounded p-2 text-sm"
+                        class="border-2 w-96 border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm"
                     />
                 </div>
                 <div class="px-6 py-4">
@@ -76,7 +76,7 @@ defineExpose({ fetchData, dataIntegration })
                     <input
                         v-model="dataIntegration.password"
                         type="password"
-                        class="border-2 w-96 border-black rounded p-2 text-sm"
+                        class="border-2 w-96 border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm"
                     />
                 </div>
                 <div v-if="dataIntegration.integrationMethod !== 'messenger'" class="px-6 py-4">
@@ -84,7 +84,7 @@ defineExpose({ fetchData, dataIntegration })
                     <input
                         v-model="dataIntegration.token"
                         type="password"
-                        class="border-2 w-96 border-black rounded p-2 text-sm"
+                        class="border-2 w-96 border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm"
                     />
                 </div>
                 <div v-if="dataIntegration.integrationMethod === 'api'" class="px-6 py-4">
@@ -92,7 +92,7 @@ defineExpose({ fetchData, dataIntegration })
                     <input
                         v-model="dataIntegration.verificationCode"
                         type="password"
-                        class="border-2 w-96 border-black rounded p-2 text-sm"
+                        class="border-2 w-96 border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm"
                     />
                 </div>
             </div>

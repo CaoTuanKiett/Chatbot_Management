@@ -75,11 +75,11 @@ defineExpose({ dataQA })
                             type="text"
                             v-model="input.question"
                             placeholder="Nhập câu hỏi"
-                            class="border-[1px] border-black rounded p-2 text-sm w-full mb-2"
+                            class="border-[1px] border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm w-full mb-2"
                         />
                         <textarea
                             v-model="input.content"
-                            class="border-[1px] border-black rounded p-2 text-sm w-full"
+                            class="border-[1px] border-slate-400 shadow-tk-btn-2 rounded p-2 text-sm w-full"
                             rows="4"
                             placeholder="Nhập câu trả lời"
                         ></textarea>
