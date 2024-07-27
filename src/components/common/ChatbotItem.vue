@@ -28,7 +28,9 @@ const isActive = ref(props.item.status)
         <div class="flex justify-between w-full">
             <div class="flex flex-col justify-between py-4">
                 <div>
-                    <h2 class="font-semibold text-xl">{{ props.item.dataInfo.nameChatbot }}</h2>
+                    <h2 class="font-semibold text-xl text-nowrap">
+                        {{ props.item.dataInfo.nameChatbot }}
+                    </h2>
                     <p v-if="props.item.status" class="flex items-center gap-2">
                         <span class="block w-3 h-3 bg-tk-active rounded-full"></span>
                         Đang hoạt động
@@ -53,20 +55,20 @@ const isActive = ref(props.item.status)
                 <div class="flex row">
                     <button
                         @click="handleSetting(props.item)"
-                        class="flex border-2 border-black px-2 mr-2 py-1 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200"
+                        class="flex border-2 border-black px-2 mr-2 py-1 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200 text-nowrap"
                     >
                         <img src="/icons/iconsetting.svg" alt="icon-setting" class="mr-2" />
                         Cài đặt
                     </button>
                     <button
-                        class="flex border-2 border-black px-2 py-1 mr-2 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200"
+                        class="flex border-2 border-black px-2 py-1 mr-2 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200 text-nowrap"
                     >
                         <img src="/icons/iconQA.svg" alt="icon-qa" class="mr-2" />
                         Thử nghiệm
                     </button>
                     <button
                         @click="toggleCheckbox(props.item)"
-                        class="flex border-2 border-black px-2 py-1 mr-2 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200"
+                        class="flex border-2 border-black px-2 py-1 mr-2 rounded h-10 justify-center items-center shadow-tk-btn-2 font-semibold transition ease-in-out delay-150 hover:-translate-y-[0.5px] hover:scale-110 hover:opacity-85 duration-200 text-nowrap"
                     >
                         Trạng thái
                         <div class="checkbox-wrapper-22">

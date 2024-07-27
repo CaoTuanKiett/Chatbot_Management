@@ -22,7 +22,7 @@ const activeScroll = ref(false)
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
         activeScroll.value = true
-        console.log('activeScroll', activeScroll.value)
+        // console.log('activeScroll', activeScroll.value)
     } else {
         activeScroll.value = false
     }
@@ -65,12 +65,20 @@ const auth = useAuthStore()
                                     <span>Trang chủ</span>
                                 </RouterLink>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <RouterLink
                                     to="/#"
                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
                                 >
                                     <span>Cộng đồng</span>
+                                </RouterLink>
+                            </li> -->
+                            <li>
+                                <RouterLink
+                                    :to="RoutePath.Payment"
+                                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
+                                >
+                                    <span>Thanh Toán</span>
                                 </RouterLink>
                             </li>
                             <li>

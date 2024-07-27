@@ -80,7 +80,7 @@ const handleDelete = (item: any) => {
 </script>
 
 <template>
-    <div class="managemnt-chatbot w-full px-60 min-h-screen">
+    <div class="managemnt-chatbot w-full px-60 min-h-screen min-w-[900px]">
         <div class="flex justify-between mb-10">
             <h1 class="text-lg font-semibold">Quản lý chatbot:</h1>
             <form class="form relative">
@@ -242,9 +242,7 @@ const handleDelete = (item: any) => {
 <style>
 .managemnt-chatbot {
     padding: 148px 190px;
-    box-shadow:
-        rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
-        rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
         rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 }
 

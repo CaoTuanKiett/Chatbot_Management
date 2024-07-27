@@ -7,6 +7,7 @@ export enum RoutePrefix {
     Auth = '/auth',
     Admin = '/admin',
     Chatbot = '/chatbot',
+    Payment = '/payment',
     Default = ''
 }
 
@@ -22,6 +23,9 @@ export enum RoutePath {
     ChatbotRegister = RoutePrefix.Chatbot + '/register',
     ChatbotManagement = RoutePrefix.Chatbot + '/management',
     ChatbotDetail = RoutePrefix.Chatbot + '/detail/:id',
+
+    //payment
+    Payment = RoutePrefix.Payment,
 
     AdminTab1Sub1 = RoutePrefix.Admin + '/tab1/sub1',
     AdminTab1Sub2 = RoutePrefix.Admin + '/tab1/sub2',
@@ -165,6 +169,15 @@ const router = createRouter({
                     }
                 }
             ]
+        },
+        {
+            path: RoutePrefix.Payment,
+            name: 'Payment',
+            component: () => import('../views/payment/index.vue'),
+            meta: {
+                title: 'Thanh toán',
+                layout: 'home-page'
+            }
         }
     ]
 })

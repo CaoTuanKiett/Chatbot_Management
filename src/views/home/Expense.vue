@@ -77,7 +77,7 @@ const plans = ref([
                 data-aos-duration="2000"
             >
                 <div
-                    class="item-expense bg-[#D0ECF8] flex flex-col items-center p-9 rounded-xl w-[276px] h-[460px] relative cursor-pointer hover:border-2 hover:bg-slate-100 shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 duration-300"
+                    class="item-expense bg-[#D0ECF8] flex flex-col items-center p-9 rounded-xl w-[288px] h-[490px] relative cursor-pointer hover:border-2 hover:bg-slate-100 shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 duration-300"
                 >
                     <p class="font-semibold text-[22px] mb-3">{{ plan.name }}</p>
                     <p class="text-3xl font-bold text-tk-color mb-7">{{ plan.price }}</p>
@@ -105,9 +105,7 @@ const plans = ref([
 <style scoped>
 /* Add your styles here */
 .item-expense {
-    box-shadow:
-        rgba(0, 0, 0, 0.19) 0px 10px 20px,
-        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .button-upgrade {
