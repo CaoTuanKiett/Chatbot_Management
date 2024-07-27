@@ -7,7 +7,11 @@
         </h2>
         <div class="flex items-center gap-40">
             <div data-aos="zoom-in-down" data-aos-duration="1100">
-                <img src="/images/why.png" alt="why" class="w-[400px]" />
+                <img
+                    src="/images/why.png"
+                    alt="why"
+                    class="w-[400px] shadow-tk-btn-2 hover:shadow-tk-btn transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 duration-300 rounded-[44px]"
+                />
             </div>
             <div class="flex flex-col gap-5">
                 <div data-aos="fade-down-left" data-aos-duration="1000">

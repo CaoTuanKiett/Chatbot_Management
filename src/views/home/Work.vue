@@ -26,7 +26,8 @@ let observer: IntersectionObserver | null = null
 
 onMounted(() => {
     const observeElements = [client.value, chatbot.value, year.value]
-    const endValues = [500, 5000, 1]
+    const endValues = [500, 5000, 3]
+    const startValues = [32, 2564, 0]
     const animateDurationValues = [800, 1000, 300]
     if (observeElements.some((el) => el !== null)) {
         observer = new IntersectionObserver(
@@ -35,7 +36,7 @@ onMounted(() => {
                     if (entry.isIntersecting) {
                         animateCounter(
                             entry.target as HTMLElement,
-                            0,
+                            startValues[index],
                             endValues[index],
                             animateDurationValues[index]
                         )
@@ -70,14 +71,14 @@ onBeforeUnmount(() => {
 
 <template>
     <div
-        class="auto relative h-[400px] w-full bg-[#D0ECF8] flex flex-col justify-center items-center"
+        class="auto relative h-[480px] w-full bg-[#D0ECF8] flex flex-col justify-center items-center"
     >
         <h2 class="text-[26px] font-semibold text-black tracking-wider pb-3 uppercase">
             Làm việc với VAIAS
         </h2>
         <span class="w-40 border-b-4 border-black mb-14"></span>
         <div class="flex justify-center items-center gap-48">
-            <div class="item-work flex flex-col items-center cursor-default">
+            <div class="w-36 item-work flex flex-col items-center cursor-default">
                 <div
                     class="images-box bg-tk-color flex items-center justify-center w-24 h-24 rounded-full shadow-tk-btn-2"
                 >
@@ -88,7 +89,7 @@ onBeforeUnmount(() => {
                 </h3>
                 <p class="text-lg">Khách hàng</p>
             </div>
-            <div class="item-work flex flex-col items-center cursor-default">
+            <div class="w-36 item-work flex flex-col items-center cursor-default">
                 <div
                     class="images-box bg-tk-color flex items-center justify-center w-24 h-24 rounded-full shadow-tk-btn-2"
                 >
@@ -99,7 +100,7 @@ onBeforeUnmount(() => {
                 </h3>
                 <p class="text-lg">Chatbot</p>
             </div>
-            <div class="item-work flex flex-col items-center cursor-default">
+            <div class="w-36 item-work flex flex-col items-center cursor-default">
                 <div
                     class="images-box bg-tk-color flex items-center justify-center w-24 h-24 rounded-full shadow-tk-btn-2"
                 >

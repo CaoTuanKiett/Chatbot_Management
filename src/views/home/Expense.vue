@@ -63,7 +63,7 @@ const plans = ref([
 </script>
 
 <template>
-    <div class="w-full bg-white flex flex-col justify-center items-center py-14">
+    <div class="w-full bg-white flex flex-col justify-center items-center py-28">
         <h2 class="text-[26px] font-semibold text-tk-color tracking-wider pb-3">
             CHI PHÍ CỦA VAIAS
         </h2>
