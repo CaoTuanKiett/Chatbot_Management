@@ -77,7 +77,7 @@ dataRoom.value = {
 }
 
 const handleCheckout = async () => {
-    console.log('dataUserPayment', dataUserPayment.value)
+    // console.log('dataUserPayment', dataUserPayment.value)
 
     const stripe = await stripePromise
 
@@ -86,12 +86,31 @@ const handleCheckout = async () => {
         return
     }
 
-    return await $post('/api/v1/payment/create-payment-intent/', dataUserPayment.value)
+    const dataPayload = {
+        arrival_date: dataUserPayment.value.arrival_date,
+        departure_date: dataUserPayment.value.departure_date,
+        reservation_status: 'active',
+        json_data: {
+            full_name: dataUserPayment.value.full_name,
+            phone: dataUserPayment.value.phone,
+            email: dataUserPayment.value.email,
+            amount: dataUserPayment.value.amount,
+            arrival_date: dataUserPayment.value.arrival_date,
+            departure_date: dataUserPayment.value.departure_date,
+            thread_id: dataUserPayment.value.thread_id
+        },
+        reservation_thread_id: 0
+    }
+
+    console.log('dataPayload', dataPayload)
+
+    return await $post('/api/v1/payment/create-checkout-session/', dataPayload)
         .then((resp) => {
             console.log(':::data -> resp', resp.data)
-            const { clientSecret } = resp.data
+            const { checkout_session } = resp.data
+            // Linking.openURL(checkout_url)
             return stripe.redirectToCheckout({
-                sessionId: clientSecret
+                sessionId: checkout_session.id
             })
         })
         .catch((err) => {
@@ -203,7 +222,7 @@ const updateImage = (newImage: string) => {
                     Thành Tiền:
                     <span class="text-2xl font-semibold text-tk-color ml-2">
                         {{ dataUserPayment.amount }}
-                        VND</span
+                        $</span
                     >
                 </p>
             </div>

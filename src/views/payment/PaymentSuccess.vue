@@ -4,7 +4,7 @@
             <div class="col-md-5">
                 <div class="message-box _success flex justify-center items-center flex-col">
                     <!-- <i class="fa fa-check-circle" aria-hidden="true"></i> -->
-                    <img src="/images/success.png" alt="success" class="w-[300px]" />
+                    <img src="/images/success.png" alt="success" class="w-[150px] mb-10" />
                     <h2>Thanh Toán Thành Công!!!</h2>
                     <p>
                         Cảm ơn bạn đã tin tưởng sử dụng dịch vụ của chúng tôi <br />
