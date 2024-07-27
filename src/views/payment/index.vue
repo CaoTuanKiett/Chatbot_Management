@@ -89,7 +89,7 @@ const handleChange = (value: string) => {
                         class="border-2 w-96 border-slate-400 rounded p-2 text-sm shadow-tk-btn-2"
                     />
                 </div>
-                <div class="flex gap-4 justify-end mt-9">
+                <div class="flex gap-4 justify-end mt-9 mr-6">
                     <button
                         class="flex justify-center items-center px-6 py-3 bg-tk-btn-color rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-red-500 duration-200"
                     >

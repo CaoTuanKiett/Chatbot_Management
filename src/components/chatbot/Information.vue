@@ -69,7 +69,7 @@ const handleChange = (value: string) => {
 
 <template>
     <div class="w-9/12 m-auto">
-        <div class="">
+        <div class="mt-6">
             <form>
                 <div class="">
                     <p class="text-xl">1.Thông tin doanh nghiệp:</p>
@@ -115,7 +115,7 @@ const handleChange = (value: string) => {
                         </div> -->
                     </div>
                 </div>
-                <div>
+                <div class="mt-5">
                     <p class="text-xl">2.Thông tin chatbot:</p>
                     <div class="flex flex-wrap justify-center">
                         <div class="px-6 py-4">

@@ -119,4 +119,12 @@ defineExpose({ fileList })
 .import-file .ant-upload-list-item {
     margin-top: 0px !important;
 }
+
+.import-file .ant-upload-list-item-name {
+    color: black !important;
+}
+
+.import-file .anticon-paper-clip {
+    fill: black !important;
+}
 </style>

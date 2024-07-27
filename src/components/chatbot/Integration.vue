@@ -52,7 +52,7 @@ defineExpose({ fetchData, dataIntegration })
 
 <template>
     <div class="integration w-9/12 m-auto">
-        <div>
+        <div class="mt-6">
             <p class="text-xl">1.Phương thức tích hợp</p>
             <RadioGroup
                 v-model:value="dataIntegration.integrationMethod"
@@ -60,7 +60,7 @@ defineExpose({ fetchData, dataIntegration })
                 class="flex flex-col p-4"
             />
         </div>
-        <div>
+        <div class="mt-5">
             <p class="text-xl">2.Thông tin tài khoản</p>
             <div class="flex flex-wrap">
                 <div class="px-6 py-4">

@@ -81,7 +81,7 @@ const handleDelete = (item: any) => {
 
 <template>
     <div class="managemnt-chatbot w-full px-60 min-h-screen min-w-[900px]">
-        <div class="flex justify-between mb-10">
+        <div class="flex justify-between items-center mb-10">
             <h1 class="text-lg font-semibold">Quản lý chatbot:</h1>
             <form class="form relative">
                 <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">

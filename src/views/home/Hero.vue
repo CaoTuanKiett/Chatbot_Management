@@ -23,16 +23,21 @@ import { RouterLink } from 'vue-router'
                 Tự động hóa hệ thống, giảm chi phí, tối ưu vận hành <br />
                 và nâng cao trải nghiệm khách hàng với dịch vụ AI 24/7.
             </p>
-            <RouterLink
-                :to="RoutePath.ChatbotRegister"
-                class="flex bg-[#f6f1f1] justify-center items-center px-3 py-1 rounded-md shadow-tk-btn-2"
+            <div
                 data-aos="fade-up"
                 data-aos-anchor-placement="bottom-bottom"
                 data-aos-duration="2500"
             >
-                <img src="/icons/icon-bot.svg" alt="icon-bot" />
-                <span class="text-[#0879A6] font-semibold ml-2">TẠO CHATBOT CHO DOANH NGHIỆP</span>
-            </RouterLink>
+                <RouterLink
+                    :to="RoutePath.ChatbotRegister"
+                    class="flex bg-[#f6f1f1] justify-center items-center px-3 py-1 rounded-md shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-200"
+                >
+                    <img src="/icons/icon-bot.svg" alt="icon-bot" />
+                    <span class="text-[#0879A6] font-semibold ml-2"
+                        >TẠO CHATBOT CHO DOANH NGHIỆP</span
+                    >
+                </RouterLink>
+            </div>
         </div>
         <img
             src="/icons/cloud2.svg"

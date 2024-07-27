@@ -25,6 +25,9 @@ export type RegisterRequest = {
     email: string
     name: string
     password: string
+    phone: string
+    status: boolean
+    role_id: number
 }
 
 export type RegisterResponse = {
