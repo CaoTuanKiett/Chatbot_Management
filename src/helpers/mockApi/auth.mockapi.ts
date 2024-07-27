@@ -54,7 +54,7 @@ export async function mockApiLogin(payload: MockApiLoginRequest) {
     )
 
     return {
-        accessToken: newAccessToken,
+        access_token: newAccessToken,
         refreshToken: newRefreshToken
     }
 }
@@ -92,7 +92,7 @@ export async function mockApiRefreshToken(payload: MockApiRefreshTokenRequest) {
         const { user_id } = decodedPayload
 
         return {
-            accessToken: createMockJwt({
+            access_token: createMockJwt({
                 user_id,
                 type: 'access'
             })
@@ -102,10 +102,10 @@ export async function mockApiRefreshToken(payload: MockApiRefreshTokenRequest) {
     }
 }
 
-export async function mockApiGetMe(accessToken: string) {
+export async function mockApiGetMe(access_token: string) {
     try {
         await sleep(1000)
-        const decodedPayload = JSON.parse(atob(accessToken.split('.')[1]))
+        const decodedPayload = JSON.parse(atob(access_token.split('.')[1]))
         const user = USERS.find((u) => u.id === decodedPayload.user_id)
 
         if (!user) {
@@ -126,10 +126,10 @@ export async function mockApiLogout() {
     await sleep(1000)
 }
 
-export async function mockApiIAmAdmin(accessToken: string) {
+export async function mockApiIAmAdmin(access_token: string) {
     try {
         await sleep(1000)
-        const decodedPayload = JSON.parse(atob(accessToken.split('.')[1]))
+        const decodedPayload = JSON.parse(atob(access_token.split('.')[1]))
         console.log(':::mockApiIAmAdmin -> decodedPayload', decodedPayload)
 
         const user = USERS.find((u) => u.id === decodedPayload.user_id)

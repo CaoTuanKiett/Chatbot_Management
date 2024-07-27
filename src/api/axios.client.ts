@@ -10,9 +10,9 @@ axiosClient.interceptors.request.use((config) => {
     config.headers['Access-Control-Allow-Origin'] = '*'
     // X-CSRFToken: FGWp2aF83aGv8UNqTUzKom4RwMfsYo5kSqzdHahcsi495vgsyYnzBEgY9OohXcWr
 
-    const accessToken = localStorage.getItem('accessToken')
-    if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`
+    const access_token = localStorage.getItem('access_token')
+    if (access_token) {
+        config.headers.Authorization = `Bearer ${access_token}`
     }
 
     return config
@@ -24,7 +24,7 @@ axiosClient.interceptors.response.use(
         const resp = error.response as any
         const respErrorCode = resp?.status ?? 500
         if (respErrorCode === 401) {
-            localStorage.removeItem('accessToken')
+            localStorage.removeItem('access_token')
             localStorage.removeItem('refreshToken')
             window.location.href = '/login'
         }

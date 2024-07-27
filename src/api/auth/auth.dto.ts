@@ -6,7 +6,7 @@ export type LoginRequest = {
 
 export type LoginResponse = {
     refreshToken: string
-    accessToken: string
+    access_token: string
 }
 
 /** REFRESH TOKEN */
@@ -16,7 +16,7 @@ export type RefreshTokenRequest = {
 }
 
 export type RefreshTokenResponse = {
-    accessToken: string
+    access_token: string
 }
 
 /** REGISTER */

@@ -15,6 +15,7 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "@stripe/stripe-js": "^4.1.0",
         "@tanstack/vue-query": "^5.48.2",
         "@vueuse/core": "^10.11.0",
         "ant-design-vue": "^4.2.3",

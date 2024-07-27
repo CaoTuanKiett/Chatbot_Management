@@ -26,6 +26,7 @@ export enum RoutePath {
 
     //payment
     Payment = RoutePrefix.Payment,
+    PaymentSuccess = RoutePrefix.Payment + '/success',
 
     AdminTab1Sub1 = RoutePrefix.Admin + '/tab1/sub1',
     AdminTab1Sub2 = RoutePrefix.Admin + '/tab1/sub2',
@@ -38,7 +39,9 @@ export const PUBLIC_ROUTE_PATHS: string[] = [
     RoutePath.Register,
     RoutePath.Home,
     RoutePath.About,
-    RoutePath.NotFound
+    RoutePath.NotFound,
+    RoutePath.Payment,
+    RoutePath.PaymentSuccess
 ]
 
 const router = createRouter({
@@ -177,6 +180,15 @@ const router = createRouter({
             meta: {
                 title: 'Thanh toán',
                 layout: 'home-page'
+            }
+        },
+        {
+            path: RoutePath.PaymentSuccess,
+            name: 'PaymentSuccess',
+            component: () => import('../views/payment/PaymentSuccess.vue'),
+            meta: {
+                title: 'Thanh toán thành công',
+                layout: 'no-layout'
             }
         }
     ]

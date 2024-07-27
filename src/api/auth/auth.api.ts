@@ -1,17 +1,23 @@
-import { mockApiIAmAdmin, mockApiLogin, mockApiRefreshToken } from '@/helpers/mockApi'
+import { $post } from '@/api'
+import { mockApiIAmAdmin, mockApiRefreshToken } from '@/helpers/mockApi'
 import axios from 'axios'
-import { type LoginRequest, type RefreshTokenRequest, type RegisterRequest } from './auth.dto'
+import {
+    type LoginRequest,
+    type LoginResponse,
+    type RefreshTokenRequest,
+    type RegisterRequest
+} from './auth.dto'
 
 export async function apiLogin(payload: LoginRequest) {
     // TODO: Please uncomment the code below and remove the mockApiLogin function
     console.log(':::apiLogin -> payload', payload)
 
-    // return await $post<LoginResponse>('/api/v1/auth/login', payload).then((resp) => {
-    //     console.log(':::apiLogin -> resp', resp)
-    //     return resp.data
-    // })
+    return await $post<LoginResponse>('/api/v1/auth/login', payload).then((resp) => {
+        console.log(':::apiLogin -> resp', resp)
+        return resp.data
+    })
 
-    return await mockApiLogin(payload)
+    // return await mockApiLogin(payload)
 }
 
 export async function apiLogout() {
@@ -59,9 +65,9 @@ export async function apiIAmAdmin() {
     // TODO: add api call to check if user is admin
 
     // Mock implementation
-    const accessToken = localStorage.getItem('accessToken')
-    if (!accessToken) {
+    const access_token = localStorage.getItem('access_token')
+    if (!access_token) {
         return Promise.reject({ message: 'Unauthorize' })
     }
-    return await mockApiIAmAdmin(accessToken)
+    return await mockApiIAmAdmin(access_token)
 }

@@ -1,29 +1,47 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { $get, $post } from '@/api'
+import { loadStripe } from '@stripe/stripe-js'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+const stripePromise = loadStripe(
+    'pk_test_51PhD2dDSs15Z8bpqz5gu04UoFAxqS0IyKEjBAhTOjrJAZZeXi0a5cAX5zNxoaSperiuO66zoVsYatKkvW8FRvafp00Qmamf5LF'
+) // Replace with your Stripe publishable key
+
+const route = useRoute()
+const token = ref('')
 
 interface UserPayment {
-    name: string
+    full_name: string
     phone: string
     email: string
-    address: string
+    amount?: number
+    arrival_date?: string
+    departure_date?: string
+    thread_id?: number
 }
 
 const dataUserPayment = ref<UserPayment>({
-    name: '',
+    full_name: '',
     phone: '',
     email: '',
-    address: ''
+    amount: 0,
+    arrival_date: '',
+    departure_date: '',
+    thread_id: 0
 })
 
 const fields: { label: string; model: keyof UserPayment }[] = [
-    { label: 'Họ và tên:', model: 'name' },
+    { label: 'Họ và tên:', model: 'full_name' },
     { label: 'Số điện thoại:', model: 'phone' },
     { label: 'Email:', model: 'email' },
-    { label: 'Địa chỉ:', model: 'address' }
+    { label: 'Số tiền:', model: 'amount' },
+    { label: 'Ngày đến:', model: 'arrival_date' },
+    { label: 'Ngày đi:', model: 'departure_date' }
 ]
 
 const dataRoom = ref({
-    name: '',
+    full_name: '',
     room: '',
     location: '',
     number: '',
@@ -37,42 +55,71 @@ const dataRoom = ref({
         img2: '',
         img3: '',
         img4: ''
-        // img5: ''
     }
 })
 
 dataRoom.value = {
-    name: 'Golden Star Villa Hoi An',
+    full_name: 'Hilton Da Nang',
     room: 'Phòng 1',
-    location: 'Hai Ba Trung Street, Tra Que Hamlet, Cam Ha Ward, Cam Ha, Hội An, Việt Nam',
+    location: '50 Bạch Đằng - Hải Châu - Đà Nẵng',
     number: '1',
-    date: '2022-10-10',
-    time: '1 giờ',
-    price: '100.000 VND',
-    total: '100.000 VND',
-    note: 'Biệt thự cách Bãi biển Hà My 2.3 km và Bãi biển Cửa Đại 2.7 km. Sân bay gần nhất là Sân bay Quốc tế Đà Nẵng, cách Golden Star Villa Hoi An 24 km, đồng thời chỗ nghỉ này cũng cung cấp dịch vụ đưa đón sân bay mất phí.',
+    date: '28/07/2024',
+    time: '4 giờ',
+    price: '1.000.000 VND',
+    total: '8.900.000 VND',
+    note: 'Nằm tại vị trí thuận tiện ở Đà Nẵng, Hilton Da Nang cung cấp các phòng có điều hòa, hồ bơi ngoài trời, Wi-Fi miễn phí và trung tâm thể dục. Khách sạn 5 sao này có dịch vụ phòng và quầy lễ tân 24 giờ. Đây là chỗ nghỉ không hút thuốc và tọa lạc cách Bãi biển Mỹ Khê 2.9 km.',
     images: {
-        img1: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/432513915.jpg?k=2a22f317a6db66a03e743a23d002a9d5a3cc9769d38c47c827ed3d61524a49c3&o=',
-        img2: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/228296440.jpg?k=7ee1d2ca98cec4fbdffcfe08a499e6a4ba44deacef016c2ae0577583ede5b55e&o=',
-        img3: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/432494359.jpg?k=105db635d3e034ea4fb0361a6b4ad812677f601f13775d13fcc68f7b6b7b7f30&o=',
-        img4: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/235308947.jpg?k=9327f2d2f82ebecf6e61cd7be2494ccf03cd3dcb158e792d70a2c5d00423a23b&o='
-        // img5: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/432513915.jpg?k=2a22f317a6db66a03e743a23d002a9d5a3cc9769d38c47c827ed3d61524a49c3&o='
+        img1: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/483826834.jpg?k=1d629de3ce2bba212b88f5cc1f3ef1df56ea30d60225f025eb0984d6a121ca63&o=',
+        img2: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/483826848.jpg?k=b7d9ba55f3ba11d2fda0255170129d3d8d702b4592251342a64571c1e236a033&o=',
+        img3: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/483826858.jpg?k=2f2b2fc868cf8132f12fa4f808b64de2c2567c7dbf53e89689b27b3c00226230&o=',
+        img4: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/483826839.jpg?k=b6e8d2c0b9006d69e17d4d6c22f4b2be351f60c9292149cc9689e4e1663f0111&o='
     }
+}
+
+const handleCheckout = async () => {
+    console.log('dataUserPayment', dataUserPayment.value)
+
+    const stripe = await stripePromise
+
+    if (!stripe) {
+        console.error('Stripe failed to load')
+        return
+    }
+
+    return await $post('/api/v1/payment/create-payment-intent/', dataUserPayment.value)
+        .then((resp) => {
+            console.log(':::data -> resp', resp.data)
+            const { clientSecret } = resp.data
+            return stripe.redirectToCheckout({
+                sessionId: clientSecret
+            })
+        })
+        .catch((err) => {
+            console.log(':::err', err)
+        })
 }
 
 const value1 = ref('Vietnam')
 const currentImage = ref(dataRoom.value.images.img1)
 
+onMounted(async () => {
+    token.value = route.query.token as string
+    console.log('token', token.value)
+    if (token.value) {
+        console.log('token', token.value)
+        return await $get('/api/v1/auth/decode-payment-token?token=' + token.value)
+            .then((resp) => {
+                console.log(':::data -> resp', resp.data)
+                return (dataUserPayment.value = resp.data)
+            })
+            .catch((err) => {
+                console.log(':::err', err)
+            })
+    }
+})
+
 const updateImage = (newImage: string) => {
     currentImage.value = newImage
-}
-
-const focus = () => {
-    console.log('focus')
-}
-
-const handleChange = (value: string) => {
-    console.log(value)
 }
 </script>
 
@@ -96,6 +143,7 @@ const handleChange = (value: string) => {
                         Hủy
                     </button>
                     <button
+                        @click="handleCheckout"
                         class="flex justify-center items-center px-6 py-3 bg-tk-btn-color-primary rounded text-white text-sm font-medium shadow-tk-btn transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-tk-hover duration-200"
                     >
                         Thanh Toán
@@ -122,7 +170,7 @@ const handleChange = (value: string) => {
                 </div>
             </div>
             <div class="w-1/2 mt-14 flex flex-col gap-3">
-                <h1 class="text-2xl font-semibold mb-3">{{ dataRoom.name }}</h1>
+                <h1 class="text-2xl font-semibold mb-3">{{ dataRoom.full_name }}</h1>
 
                 <p class="flex items-center">
                     <img src="/images/room.png" alt="room" class="w-6 mr-1" /> Phòng:
@@ -150,149 +198,19 @@ const handleChange = (value: string) => {
                 </p>
 
                 <p
-                    class="bg-tk-color mx-12 flex justify-center items-center py-3 text-white font-semibold mt-16 rounded-md tracking-wider"
+                    class="flex justify-start items-end py-3 pl-5 text-black mt-16 rounded-md tracking-wider"
                 >
-                    Thành Tiền: {{ dataRoom.total }}
+                    Thành Tiền:
+                    <span class="text-2xl font-semibold text-tk-color ml-2">
+                        {{ dataUserPayment.amount }}
+                        VND</span
+                    >
                 </p>
             </div>
         </div>
     </div>
-    <!-- <div class="payment h-screen pt-[200px]">
-        <div
-            class="flex flex-col justify-center items-center p-20 border border-solid bg-slate-50 border-neutral-200 max-w-[829px] max-md:px-5"
-        >
-            <div class="flex gap-4 mt-7 max-w-full w-[466px] max-md:flex-wrap">
-                <div
-                    class="flex flex-col flex-1 justify-center items-start px-3 py-2.5 text-sm font-semibold text-sky-600 whitespace-nowrap bg-white rounded-md border-2 border-sky-600 border-solid shadow-sm max-md:pr-5"
-                >
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/35a9d6540bc7f3ccf84602fab2575738001d50216859d3bc065fee2dbc3ac9c8?"
-                        class="w-4 aspect-square"
-                    />
-                    <div>Card</div>
-                </div>
-                <div
-                    class="flex flex-col flex-1 justify-center items-start px-3 py-2.5 text-sm font-semibold whitespace-nowrap bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 text-slate-500 max-md:pr-5"
-                >
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/713329827f24f05e4a2097b662fa93024fd6633c6f9e12b14460cc0b10b85e10?"
-                        class="w-4 aspect-square"
-                    />
-                    <div>EPS</div>
-                </div>
-                <div
-                    class="flex flex-col flex-1 justify-center items-start px-3 py-2.5 text-sm font-semibold whitespace-nowrap bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 text-slate-500 max-md:pr-5"
-                >
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8151e47fb3182520dd209259e53818c7bc93b72da04ad8ddee81e4afc108ba13?"
-                        class="w-4 aspect-square"
-                    />
-                    <div>Giropay</div>
-                </div>
-                <div
-                    class="flex justify-center items-center px-3 py-2.5 bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200"
-                >
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/fcb3d3587fc8c6d9dc0ce588b6e3cdd81e69953dec37ba2bf6814a169cfb2276?"
-                        class="w-2 aspect-[4] fill-slate-500"
-                    />
-                </div>
-            </div>
-            <div class="mt-2.5 text-sm font-semibold text-slate-600 max-md:max-w-full">
-                Card number
-            </div>
-            <div
-                class="flex flex-col justify-center mt-1 max-w-full bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 w-[466px]"
-            >
-                <div
-                    class="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full relative"
-                >
-                    <input
-                        type="text"
-                        class="text-base font-medium text-black w-full h-full px-3 py-2.5"
-                        placeholder="1234 1234 1234 1234"
-                    />
-                    <div class="flex gap-1 absolute right-3 top-0 bottom-0">
-                        <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b16e85282079ea1dde027a70317b379de23da0584473a62a265cf85c0170f6cc?"
-                            class="shrink-0 w-6 aspect-[1.49]"
-                        /><img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9dd713791d4f76fb9df1fc74f1dad091cdfcbaa4e81dd78cea003dad765a884f?"
-                            class="shrink-0 w-6 aspect-[1.49]"
-                        /><img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a7902317f22df9dd8bf96774a0e591bfeb1b290207f353099eacb50f6f26224?"
-                            class="shrink-0 w-6 aspect-[1.49]"
-                        /><img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3431a6cad0a11ef2a00e83e634746bad6e29c20a1cf788f05231999fd4d0c133?"
-                            class="shrink-0 w-6 aspect-[1.49]"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div
-                class="flex gap-2.5 mt-2.5 max-w-full text-sm font-semibold w-[466px] max-md:flex-wrap"
-            >
-                <div class="flex flex-col flex-1">
-                    <div class="text-slate-600">Expiry</div>
-                    <input
-                        type="text"
-                        class="px-3 py-2.5 mt-1 ext-base font-medium text-black bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 max-md:pr-5"
-                        placeholder="MM / YY"
-                    />
-                </div>
-                <div class="flex flex-col flex-1 whitespace-nowrap">
-                    <div class="text-slate-600">CVC</div>
-                    <input
-                        type="text"
-                        class="px-3 py-2.5 mt-1 ext-base font-medium text-black bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 max-md:pr-5"
-                        placeholder="CVC"
-                    />
-                </div>
-            </div>
-            <div
-                class="flex gap-2.5 mt-2.5 max-w-full text-sm font-semibold w-[466px] max-md:flex-wrap"
-            >
-                <div class="flex flex-col flex-1">
-                    <div class="text-slate-600">Country</div>
-
-                    <Select
-                        ref="select"
-                        v-model:value="value1"
-                        @focus="focus"
-                        @change="handleChange"
-                        class="flex gap-5 justify-between w-56 h-11 text-black bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200"
-                    >
-                        <SelectOption value="United States">
-                            <span>United States</span>
-                        </SelectOption>
-                        <SelectOption value="Canada">
-                            <span>Canada</span>
-                        </SelectOption>
-                        <SelectOption value="Việt Nam">
-                            <span>Vietnam</span>
-                        </SelectOption>
-                    </Select>
-                </div>
-                <div class="flex flex-col flex-1">
-                    <div class="text-slate-600">Postal code</div>
-                    <input
-                        type="text"
-                        class="px-3 py-2.5 mt-1 text-gray-400 whitespace-nowrap bg-white rounded-md border-2 border-solid shadow-sm border-neutral-200 max-md:pr-5"
-                        placeholder="90210"
-                    />
-                </div>
-            </div>
-        </div>
-    </div> -->
 </template>
+
 
 <style>
 /* Add your styles here */

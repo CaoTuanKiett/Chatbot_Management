@@ -9,6 +9,7 @@ import AuthLayout from '@/layouts/auth/index.vue'
 import DefaultLayout from '@/layouts/empty/index.vue'
 import HomeLayout from '@/layouts/home-page/index.vue'
 import LandingLayout from '@/layouts/landing-page/index.vue'
+import NoLayout from '@/layouts/no-layout.vue'
 import { markRaw, ref, watch } from 'vue'
 
 const layouts: Record<string, typeof DefaultLayout> = {
@@ -16,7 +17,8 @@ const layouts: Record<string, typeof DefaultLayout> = {
     auth: AuthLayout,
     admin: AdminLayout,
     'home-page': HomeLayout,
-    'landing-page': LandingLayout
+    'landing-page': LandingLayout,
+    'no-layout': NoLayout
 }
 
 const route = useRoute()

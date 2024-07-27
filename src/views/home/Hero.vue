@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-    <div class="hero w-full h-[740px] relative bg-slate-300">
+    <div class="hero w-full h-[700px] relative bg-slate-300">
         <div class="hero-container w-full h-full flex flex-col items-start justify-center pl-40">
             <h3
                 class="text-6xl font-semibold text-white mb-6"

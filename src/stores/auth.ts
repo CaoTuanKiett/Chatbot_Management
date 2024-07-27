@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode'
 import { defineStore } from 'pinia'
 
 interface AuthStoreState {
-    accessToken?: string
+    access_token?: string
     refreshToken?: string
     payload?: {
         exp: number // unix timestamp: 1633835614
@@ -23,29 +23,30 @@ export const useAuthStore = defineStore({
     state: (): AuthStoreState => ({}),
     getters: {
         isLoggedIn(state) {
-            return !!state.accessToken
+            return !!state.access_token
         }
     },
     actions: {
         async login(payload: LoginRequest) {
             const loginResp = await apiLogin(payload)
+            console.log(':::login -> loginResp', loginResp)
 
             this.saveAuthData({
-                accessToken: loginResp.accessToken,
+                access_token: loginResp.access_token,
                 refreshToken: loginResp.refreshToken,
-                payload: jwtDecode(loginResp.accessToken)
+                payload: jwtDecode(loginResp.access_token)
             })
 
             router.push(this.returnUrl || RoutePath.Home)
         },
         async clear() {
             console.debug('clear')
-            this.accessToken = undefined
+            this.access_token = undefined
             this.refreshToken = undefined
             this.payload = undefined
             this.returnUrl = undefined
             this.stopRefreshTokenTimer()
-            localStorage.removeItem('accessToken')
+            localStorage.removeItem('access_token')
             localStorage.removeItem('refreshToken')
         },
         async logout() {
@@ -55,11 +56,11 @@ export const useAuthStore = defineStore({
             router.push(RoutePath.Login)
         },
         //
-        saveAuthData(data: { accessToken: string; refreshToken?: string; payload?: any }) {
-            if (data.accessToken) {
-                this.accessToken = data.accessToken
+        saveAuthData(data: { access_token: string; refreshToken?: string; payload?: any }) {
+            if (data.access_token) {
+                this.access_token = data.access_token
                 this.startRefreshTokenTimer()
-                localStorage.setItem('accessToken', data.accessToken)
+                localStorage.setItem('access_token', data.access_token)
             }
             if (data.refreshToken) {
                 this.refreshToken = data.refreshToken
@@ -72,18 +73,18 @@ export const useAuthStore = defineStore({
         },
 
         async doPersistAuthData() {
-            const accessToken = localStorage.getItem('accessToken')
+            const access_token = localStorage.getItem('access_token')
             const refreshToken = localStorage.getItem('refreshToken')
 
-            if (!accessToken || !refreshToken) {
+            if (!access_token || !refreshToken) {
                 this.clear()
                 return
             }
 
             this.saveAuthData({
-                accessToken,
+                access_token,
                 refreshToken,
-                payload: jwtDecode(accessToken)
+                payload: jwtDecode(access_token)
             })
 
             await this.doRefreshToken(refreshToken)
@@ -99,13 +100,13 @@ export const useAuthStore = defineStore({
                 const respData = await apiRefreshToken({
                     refreshToken: _refreshToken
                 })
-                if (!respData?.accessToken) {
+                if (!respData?.access_token) {
                     console.debug('no access token in resp')
                     throw new Error()
                 }
 
                 this.saveAuthData({
-                    accessToken: respData.accessToken
+                    access_token: respData.access_token
                 })
             } catch (error) {
                 console.error('doRefreshToken error', error)
