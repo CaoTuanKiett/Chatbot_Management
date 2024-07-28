@@ -28,11 +28,7 @@ const registerForm = reactive<
 >({
     name: '',
     email: '',
-    password: '',
-    passwordAgain: '',
-    phone: '',
-    status: true,
-    role_id: 0
+    password: ''
 })
 
 const { mutate, isPending } = useMutation({
@@ -96,20 +92,6 @@ const onFinishFailed = (errInfo: any) => {
                     <template #prefix> <Icon icon="ph:envelope-simple-bold" /> </template
                 ></Input>
             </FormItem>
-            <FormItem
-                name="phone"
-                :rules="[{ required: true, message: $t('common.this_field_is_required') }]"
-            >
-                <Input
-                    type="text"
-                    size="large"
-                    v-model:value="registerForm.phone"
-                    placeholder="số điện thoại"
-                >
-                    <template #prefix> <Icon icon="ph:envelope-simple-bold" /> </template
-                ></Input>
-            </FormItem>
-
             <FormItem
                 name="password"
                 :rules="[{ required: true, message: $t('common.this_field_is_required') }]"

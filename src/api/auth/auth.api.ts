@@ -1,23 +1,22 @@
 import { $post } from '@/api'
-import { mockApiIAmAdmin, mockApiRefreshToken } from '@/helpers/mockApi'
-import axios from 'axios'
+import { mockApiIAmAdmin, mockApiLogin, mockApiRefreshToken } from '@/helpers/mockApi'
 import {
     type LoginRequest,
-    type LoginResponse,
     type RefreshTokenRequest,
-    type RegisterRequest
+    type RegisterRequest,
+    type RegisterResponse
 } from './auth.dto'
 
 export async function apiLogin(payload: LoginRequest) {
     // TODO: Please uncomment the code below and remove the mockApiLogin function
     console.log(':::apiLogin -> payload', payload)
 
-    return await $post<LoginResponse>('/api/v1/auth/login', payload).then((resp) => {
-        console.log(':::apiLogin -> resp', resp)
-        return resp.data
-    })
+    // return await $post<LoginResponse>('/api/v1/auth/login', payload).then((resp) => {
+    //     console.log(':::apiLogin -> resp', resp)
+    //     return resp.data
+    // })
 
-    // return await mockApiLogin(payload)
+    return await mockApiLogin(payload)
 }
 
 export async function apiLogout() {
@@ -26,26 +25,26 @@ export async function apiLogout() {
 }
 
 export async function apiRegister(payload: RegisterRequest) {
-    // await $post<RegisterResponse>('/auth/register/', payload).then((resp) => {
-    //     return resp.data
-    // })
-
-    const data = {
-        full_name: payload.name,
-        email: payload.email,
-        phone: payload.phone,
-        status: true,
-        role_id: 0,
-        password: payload.password
-    }
-    console.log(':::apiRegister -> payload', data)
-
-    return await axios.post('https://htklalala.xyz/api/v1/auth/signup', data).then((resp) => {
-        console.log(':::apiRegister -> resp', resp)
+    await $post<RegisterResponse>('/auth/register/', payload).then((resp) => {
         return resp.data
     })
 
-    // await $post<RegisterResponse>('/api/v1/auth/signup', data).then((resp) => {
+    // const data = {
+    //     full_name: payload.name,
+    //     email: payload.email,
+    //     phone: payload.phone,
+    //     status: true,
+    //     role_id: 0,
+    //     password: payload.password
+    // }
+    // console.log(':::apiRegister -> payload', data)
+
+    // return await axios.post('https://htklalala.xyz/api/v1/auth/signup', data).then((resp) => {
+    //     console.log(':::apiRegister -> resp', resp)
+    //     return resp.data
+    // })
+
+    // await $post<RegisterResponse>('/api/v1/auth/signup', payload).then((resp) => {
     //     console.log(':::apiRegister -> resp', resp)
 
     //     return resp.data
