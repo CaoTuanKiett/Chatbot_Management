@@ -65,7 +65,7 @@ dataRoom.value = {
     number: '1',
     date: '28/07/2024',
     time: '4 giờ',
-    price: '1.000.000 VND',
+    price: '146 $',
     total: '8.900.000 VND',
     note: 'Nằm tại vị trí thuận tiện ở Đà Nẵng, Hilton Da Nang cung cấp các phòng có điều hòa, hồ bơi ngoài trời, Wi-Fi miễn phí và trung tâm thể dục. Khách sạn 5 sao này có dịch vụ phòng và quầy lễ tân 24 giờ. Đây là chỗ nghỉ không hút thuốc và tọa lạc cách Bãi biển Mỹ Khê 2.9 km.',
     images: {
