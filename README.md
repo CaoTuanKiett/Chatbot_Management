@@ -7,7 +7,10 @@ This template should help get you started developing with Vue 3 in Vite.
 [https://chatbot-management-sigma.vercel.app/](https://chatbot-management-sigma.vercel.app/)
 
 ## Video product
-https://drive.google.com/file/d/1SzeOINd60V3xdh08_5LKfXDfZ0K-RnNk/view?usp=sharing
+[https://drive.google.com/file/d/1SzeOINd60V3xdh08_5LKfXDfZ0K-RnNk/view?usp=sharing](https://drive.google.com/file/d/1eyR82h7S1eDocboNmyShUFL9ydzEMiF4/view?usp=sharing)
+
+## Side
+https://docs.google.com/presentation/d/1EXcWCrzv4twDMksVax0KHUiSbMTMpd9E/edit?usp=sharing&ouid=117212146391044240989&rtpof=true&sd=true
 
 ## Mock account
 
