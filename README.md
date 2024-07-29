@@ -1,6 +1,7 @@
-# vuejs-boilerplate
+## VAIAS - VIETNAM AI AUTOMATION SERVICES - TOURISM 
 
-This template should help get you started developing with Vue 3 in Vite.
+Description: 
+  Providing virtual assistant integration services to support handling tourist requests for the tourist accommodation segment
 
 ## Demo
 
@@ -11,6 +12,9 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Side
 https://docs.google.com/presentation/d/1EXcWCrzv4twDMksVax0KHUiSbMTMpd9E/edit?usp=sharing&ouid=117212146391044240989&rtpof=true&sd=true
+
+## Backend 
+https://github.com/huynhtrongkhoa/unihack2024-be.git
 
 ## Mock account
 
