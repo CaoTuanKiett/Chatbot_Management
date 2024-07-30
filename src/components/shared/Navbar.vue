@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LanguageChanger from '@/components/LanguageChanger.vue'
 import ButtonRegisterChatbot from '@/components/common/ButtonRegisterChatbot.vue'
 import { RoutePath } from '@/router'
 import { useAuthStore } from '@/stores/auth'
@@ -65,22 +64,15 @@ const auth = useAuthStore()
                                     <span>Trang chủ</span>
                                 </RouterLink>
                             </li>
-                            <!-- <li>
+                            <li>
                                 <RouterLink
                                     to="/#"
                                     class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
                                 >
                                     <span>Cộng đồng</span>
                                 </RouterLink>
-                            </li> -->
-                            <li>
-                                <RouterLink
-                                    :to="RoutePath.Payment"
-                                    class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
-                                >
-                                    <span>Thanh Toán</span>
-                                </RouterLink>
                             </li>
+
                             <li>
                                 <RouterLink
                                     :to="RoutePath.ChatbotManagement"
@@ -105,7 +97,7 @@ const auth = useAuthStore()
                         </ul>
                     </nav>
                     <div class="flex gap-4 items-center">
-                        <LanguageChanger size="large" />
+                        <!-- <LanguageChanger size="large" /> -->
                         <div v-if="!auth.isLoggedIn" class="hidden lg:flex items-center gap-4">
                             <RouterLink :to="RoutePath.Login">
                                 {{ $t('landingpage.navbar.login') }}
@@ -139,14 +131,28 @@ const auth = useAuthStore()
                                     <template #overlay>
                                         <Menu class="p-2">
                                             <MenuItem>
-                                                <button @click="auth.logout">
-                                                    {{ $t('landingpage.navbar.logout') }}
-                                                </button>
-                                            </MenuItem>
-                                            <MenuItem>
-                                                <RouterLink :to="RoutePath.ChatbotManagement">
+                                                <RouterLink
+                                                    :to="RoutePath.ChatbotManagement"
+                                                    class="flex lg:px-3 py-1 items-center text-gray-600 hover:text-gray-900"
+                                                >
                                                     Quản lý Chatbot
                                                 </RouterLink>
+                                            </MenuItem>
+                                            <MenuItem>
+                                                <RouterLink
+                                                    :to="RoutePath.Payment"
+                                                    class="flex lg:px-3 py-1 items-center text-gray-600 hover:text-gray-900"
+                                                >
+                                                    <span>Thanh Toán</span>
+                                                </RouterLink>
+                                            </MenuItem>
+                                            <MenuItem>
+                                                <button
+                                                    @click="auth.logout"
+                                                    class="flex lg:px-3 py-1 items-center text-gray-600 hover:text-gray-900"
+                                                >
+                                                    {{ $t('landingpage.navbar.logout') }}
+                                                </button>
                                             </MenuItem>
                                         </Menu>
                                     </template>

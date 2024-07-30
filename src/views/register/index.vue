@@ -21,14 +21,11 @@ if (auth?.isLoggedIn) {
     router.push(RoutePath.Home)
 }
 
-const registerForm = reactive<
-    RegisterRequest & {
-        passwordAgain: string
-    }
->({
+const registerForm = reactive<RegisterRequest & { passwordAgain: string }>({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    passwordAgain: ''
 })
 
 const { mutate, isPending } = useMutation({
